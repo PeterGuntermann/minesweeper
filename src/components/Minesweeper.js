@@ -7,61 +7,49 @@ export class Minesweeper extends React.Component {
     }
 
     render() {
-        return (<>
-            <FieldContainer value={3}/>
-            <FieldContainer value={2}/>
-            <FieldContainer value={6}/>
-            <FieldContainer value={1}/>
-            <FieldContainer value={0}/>
-            <FieldContainer value={0}/>
-            <FieldContainer value={0}/>
-            <FieldContainer value={0}/>
-            <FieldContainer value={1}/>
-            <FieldContainer value={5}/>
-            <FieldContainer value={2}/>
-            <FieldContainer value={3}/>
-            <FieldContainer value={6}/>
-            <FieldContainer value={8}/>
-            <FieldContainer value={3}/>
-            <FieldContainer value={6}/>
-            <FieldContainer value={3}/>
-            <FieldContainer value={1}/>
-            <FieldContainer value={2}/>
-        </>);
+        return (<div className="board">
+            <FieldContainer neighborCount={0}/>
+            <FieldContainer neighborCount={1}/>
+            <FieldContainer neighborCount={2}/>
+            <FieldContainer neighborCount={3}/>
+            <FieldContainer neighborCount={4}/>
+            <FieldContainer neighborCount={5}/>
+            <FieldContainer neighborCount={6}/>
+            <FieldContainer neighborCount={7}/>
+            <FieldContainer neighborCount={8}/>
+        </div>);
     }
 }
 
 class FieldContainer extends React.Component {
     state = {
-        isRevealed: false
+        isRevealed: false,
     };
 
     handleReveal = () => {
-        this.setState({isRevealed: true})
-    }
+        this.setState({ isRevealed: true });
+    };
 
 
     render() {
-        const {isRevealed} = this.state;
-        const {value} = this.props;
-        return <Field value={value} isRevealed={isRevealed} onReveal={this.handleReveal}/>;
+        const { isRevealed } = this.state;
+        const { neighborCount } = this.props;
+        return <Field neighborCount={neighborCount} isRevealed={isRevealed} onReveal={this.handleReveal}/>;
     }
 }
 
-const Field = ({isRevealed, value, onReveal}) => (
+const Field = ({ isRevealed, neighborCount, onReveal }) => (
     isRevealed
-        ? <RevealedField value={value}/>
-        : <UnrevealedField onReveal={onReveal}/>
+        ? <RevealedField neighborCount={neighborCount}/>
+        : <UntouchedField onReveal={onReveal}/>
 );
 
-const RevealedField = ({value}) => (
-    <div className={`revealed-field neighbor-count-${value}`}>
-        <span>{value}</span>
+const RevealedField = ({ neighborCount }) => (
+    <div className={`field revealed neighbor-count-${neighborCount}`}>
+        <span>{neighborCount}</span>
     </div>
 );
 
-const UnrevealedField = ({onReveal}) => (
-    <div className="unrevealed-field" onClick={onReveal}>
-        ?
-    </div>
+const UntouchedField = ({ onReveal }) => (
+    <div className="field untouched" onClick={onReveal}></div>
 );

@@ -1,13 +1,77 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 120px;
+    height: 120px;
+}
+
+.field {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 1px solid #333;
+}
+
+.field.untouched {
+    background: rgb(68,68,255);
+    background: linear-gradient(135deg, rgba(68,68,255,1) 0%, rgba(0,221,255,1) 100%);
+}
+
+.field.revealed {
+    background: #ccc;
+    font-weight: bold;
+}
+
+.field.neighbor-count-0 {
+    color: transparent;
+}
+
+.field.neighbor-count-1 {
+    color: blue;
+}
+
+.field.neighbor-count-2 {
+    color: green;
+}
+
+.field.neighbor-count-3 {
+    color: red;
+}
+
+.field.neighbor-count-4 {
+    color: blueviolet;
+}
+
+.field.neighbor-count-5 {
+    color: brown;
+}
+
+.field.neighbor-count-6 {
+    color: teal;
+}
+
+.field.neighbor-count-7 {
+    color: darkblue;
+}
+
+.field.neighbor-count-8 {
+    color: grey;
 }
