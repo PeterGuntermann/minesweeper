@@ -1,4 +1,5 @@
 import * as React from "react";
+import { FieldContainer } from "./FieldContainer";
 
 export class Minesweeper extends React.Component {
     constructor(props) {
@@ -21,35 +22,3 @@ export class Minesweeper extends React.Component {
     }
 }
 
-class FieldContainer extends React.Component {
-    state = {
-        isRevealed: false,
-    };
-
-    handleReveal = () => {
-        this.setState({ isRevealed: true });
-    };
-
-
-    render() {
-        const { isRevealed } = this.state;
-        const { neighborCount } = this.props;
-        return <Field neighborCount={neighborCount} isRevealed={isRevealed} onReveal={this.handleReveal}/>;
-    }
-}
-
-const Field = ({ isRevealed, neighborCount, onReveal }) => (
-    isRevealed
-        ? <RevealedField neighborCount={neighborCount}/>
-        : <UntouchedField onReveal={onReveal}/>
-);
-
-const RevealedField = ({ neighborCount }) => (
-    <div className={`field revealed neighbor-count-${neighborCount}`}>
-        <span>{neighborCount}</span>
-    </div>
-);
-
-const UntouchedField = ({ onReveal }) => (
-    <div className="field untouched" onClick={onReveal}></div>
-);
