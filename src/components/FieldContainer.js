@@ -10,10 +10,13 @@ export class FieldContainer extends React.Component {
         this.setState({ isRevealed: true });
     };
 
-
     render() {
         const { isRevealed } = this.state;
         const { neighborCount } = this.props;
-        return <Field neighborCount={neighborCount} isRevealed={isRevealed} onReveal={this.handleReveal}/>;
+        return <Field
+            neighborCount={neighborCount}
+            isRevealed={isRevealed}
+            onReveal={this.handleReveal}
+        />;
     }
 }
