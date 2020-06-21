@@ -1,23 +1,29 @@
 import * as React from "react";
-import { FieldContainer } from "./FieldContainer";
+import { Field } from "./Field";
 
 export class Minesweeper extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            level: "easy", // easy, medium, hard
+            numberOfMines: 10,
+            numberOfRows: 9,
+            numberOfColumns: 9,
+            status: "playing", // playing, clear, gameover
+        };
     }
 
     render() {
         return (<div className="board">
-            <FieldContainer neighborCount={0}/>
-            <FieldContainer neighborCount={1}/>
-            <FieldContainer neighborCount={2}/>
-            <FieldContainer neighborCount={3}/>
-            <FieldContainer neighborCount={4}/>
-            <FieldContainer neighborCount={5}/>
-            <FieldContainer neighborCount={6}/>
-            <FieldContainer neighborCount={7}/>
-            <FieldContainer neighborCount={8}/>
+            <Field neighborCount={0}/>
+            <Field neighborCount={1}/>
+            <Field neighborCount={2}/>
+            <Field neighborCount={3}/>
+            <Field neighborCount={4}/>
+            <Field neighborCount={5}/>
+            <Field neighborCount={6}/>
+            <Field neighborCount={7}/>
+            <Field neighborCount={8}/>
         </div>);
     }
 }
