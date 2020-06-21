@@ -15,7 +15,7 @@ export class Minesweeper extends React.Component {
 
     render() {
         return (<div className="board">
-            <Field neighborCount={0}/>
+            <Field neighborCount={0} hasMine={true}/>
             <Field neighborCount={1}/>
             <Field neighborCount={2}/>
             <Field neighborCount={3}/>

@@ -1,5 +1,6 @@
 import * as React from "react";
 import './field.css';
+import { MineField } from "./MineField";
 import { RevealedField } from "./RevealedField";
 import { UntouchedField } from "./UntouchedField";
 
@@ -14,9 +15,14 @@ export class Field extends React.Component {
 
     render() {
         const { isRevealed } = this.state;
-        const { neighborCount } = this.props;
-        return isRevealed
-            ? <RevealedField neighborCount={neighborCount}/>
-            : <UntouchedField onReveal={this.handleReveal}/>;
+        const { neighborCount, hasMine } = this.props;
+
+        if (isRevealed) {
+            return hasMine
+                ? <MineField/>
+                : <RevealedField neighborCount={neighborCount}/>;
+        }
+
+        return <UntouchedField onReveal={this.handleReveal}/>;
     }
 }
