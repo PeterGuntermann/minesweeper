@@ -14,16 +14,23 @@ export class Minesweeper extends React.Component {
     }
 
     render() {
-        return (<div className="board">
-            <Field neighborCount={0} hasMine={true}/>
-            <Field neighborCount={1}/>
-            <Field neighborCount={2}/>
-            <Field neighborCount={3}/>
-            <Field neighborCount={4}/>
-            <Field neighborCount={5}/>
-            <Field neighborCount={6}/>
-            <Field neighborCount={7}/>
-            <Field neighborCount={8}/>
+        return (<div className="minesweeper">
+            <p className="info">
+                <span>Level: {this.state.level}</span><br/>
+                <span>Mines: {this.state.numberOfMines}</span><br/>
+                <span>Status: {this.state.status}</span>
+            </p>
+            <div className="board">
+                <Field neighborCount={0} hasMine={true}/>
+                <Field neighborCount={1}/>
+                <Field neighborCount={2}/>
+                <Field neighborCount={3}/>
+                <Field neighborCount={4}/>
+                <Field neighborCount={5}/>
+                <Field neighborCount={6}/>
+                <Field neighborCount={7}/>
+                <Field neighborCount={8}/>
+            </div>
         </div>);
     }
 }

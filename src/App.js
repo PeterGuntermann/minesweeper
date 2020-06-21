@@ -6,6 +6,7 @@ function App() {
     return (<>
         <div className="App">
             <Minesweeper/>
+            <footer><p>Made with React.JS</p></footer>
         </div>
     </>);
 }
