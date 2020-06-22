@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./minesweeper.css";
 import "./board.css";
 import { Field } from "./Field";
 
@@ -11,11 +12,7 @@ export class Minesweeper extends React.Component {
             numberOfRows: 9,
             numberOfColumns: 9,
             status: "playing", // playing, clear, gameover
-            fields: [
-                [1, 1, 0],
-                [0, 0, 1],
-                [0, 1, 0],
-            ],
+            fields: Array(16).fill(Array(30).fill(1))
         };
     }
 
@@ -33,8 +30,8 @@ export class Minesweeper extends React.Component {
     render() {
         return (<div className="minesweeper">
             <p className="info">
-                <span>Level: {this.state.level}</span><br/>
-                <span>Mines: {this.state.numberOfMines}</span><br/>
+                <span>Level: {this.state.level}, </span>
+                <span>Mines: {this.state.numberOfMines}, </span>
                 <span>Status: {this.state.status}</span>
             </p>
             {this.board()}

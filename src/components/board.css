@@ -1,6 +1,9 @@
 .board {
     margin: 0 auto;
+    font-size: 1.25rem;
 }
 
 .board.level-easy {
+    width: calc(30 * 30px);
+    height: calc(16 * 30px);
 }
