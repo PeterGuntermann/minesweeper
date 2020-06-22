@@ -1,6 +1,6 @@
 import * as React from "react";
-import "./minesweeper.css";
-import "./board.css";
+import "../styles/board.css";
+import "../styles/minesweeper.css";
 import { Field } from "./Field";
 
 export class Minesweeper extends React.Component {
@@ -12,7 +12,7 @@ export class Minesweeper extends React.Component {
             numberOfRows: 9,
             numberOfColumns: 9,
             status: "playing", // playing, clear, gameover
-            fields: Array(16).fill(Array(30).fill(1))
+            fields: Array(16).fill(Array(30).fill(1)),
         };
     }
 

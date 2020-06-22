@@ -1,5 +1,5 @@
 import * as React from "react";
-import './field.css';
+import '../styles/field.css';
 import { MineField } from "./MineField";
 import { RevealedField } from "./RevealedField";
 import { UntouchedField } from "./UntouchedField";
