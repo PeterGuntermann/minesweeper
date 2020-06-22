@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./board.css";
 import { Field } from "./Field";
 
 export class Minesweeper extends React.Component {
@@ -10,8 +11,24 @@ export class Minesweeper extends React.Component {
             numberOfRows: 9,
             numberOfColumns: 9,
             status: "playing", // playing, clear, gameover
+            fields: [
+                [1, 1, 0],
+                [0, 0, 1],
+                [0, 1, 0],
+            ],
         };
     }
+
+    fieldRow = (fieldsInThisRow) => {
+        return fieldsInThisRow.map(field => <Field neighborCount={1} hasMine={!!field}/>);
+    };
+
+    board = () => {
+        const boardCssClasses = `board level-${this.state.level}`;
+        return <div className={boardCssClasses}>
+            {this.state.fields.map(row => this.fieldRow(row))}
+        </div>;
+    };
 
     render() {
         return (<div className="minesweeper">
@@ -20,17 +37,7 @@ export class Minesweeper extends React.Component {
                 <span>Mines: {this.state.numberOfMines}</span><br/>
                 <span>Status: {this.state.status}</span>
             </p>
-            <div className="board">
-                <Field neighborCount={0} hasMine={true}/>
-                <Field neighborCount={1}/>
-                <Field neighborCount={2}/>
-                <Field neighborCount={3}/>
-                <Field neighborCount={4}/>
-                <Field neighborCount={5}/>
-                <Field neighborCount={6}/>
-                <Field neighborCount={7}/>
-                <Field neighborCount={8}/>
-            </div>
+            {this.board()}
         </div>);
     }
 }
