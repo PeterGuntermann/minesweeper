@@ -16,8 +16,8 @@ export class Minesweeper extends React.Component {
         };
     }
 
-    fieldRow = (fieldsInThisRow) => {
-        return fieldsInThisRow.map(field => <Field neighborCount={1} hasMine={!!field}/>);
+    fieldRow = fieldsInThisRow => {
+        return fieldsInThisRow.map((field, index) => <Field key={index} neighborCount={1} hasMine={!!field}/>);
     };
 
     board = () => {
@@ -27,15 +27,29 @@ export class Minesweeper extends React.Component {
         </div>;
     };
 
+    handleChangeLevel = (event) => {
+        this.setState({ level: event.target.value });
+        console.log(`Level changed to ${event.target.value}.`);
+    };
+
+    levelChooser = () => (
+        <div className="choose-level">
+            <label>Level: </label>
+            <select value={this.state.level} onChange={this.handleChangeLevel}>
+                <option value="">-- Choose difficulty --</option>
+                <option value="easy">Easy: 9x9 board, 10 mines (12%)</option>
+                <option value="medium">Medium: 16x16 board, 40 mines (16%)</option>
+                <option value="hard">Hard: 30x16 board, 100 mines (21%)</option>
+            </select>
+        </div>
+    );
+
     render() {
         return (<div className="minesweeper">
-            <p className="info">
-                <span>Level: {this.state.level}, </span>
-                <span>Mines: {this.state.numberOfMines}, </span>
-                <span>Status: {this.state.status}</span>
-            </p>
-            {this.board()}
-        </div>);
+                {this.levelChooser()}
+                {this.board()}
+            </div>
+        );
     }
 }
 

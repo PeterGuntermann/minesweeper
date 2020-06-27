@@ -1,3 +1,9 @@
-.minesweeper .info {
-    font-size: 1.25rem;
+.choose-level {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.choose-level label {
+    margin-right: 7px;
 }
