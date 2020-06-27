@@ -4,6 +4,16 @@
 }
 
 .board.level-easy {
+    width: calc(9 * 30px);
+    height: calc(9 * 30px);
+}
+
+.board.level-medium {
+    width: calc(16 * 30px);
+    height: calc(16 * 30px);
+}
+
+.board.level-hard {
     width: calc(30 * 30px);
     height: calc(16 * 30px);
 }

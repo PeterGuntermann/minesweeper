@@ -8,13 +8,45 @@ export class Minesweeper extends React.Component {
         super(props);
         this.state = {
             level: "easy", // easy, medium, hard
-            numberOfMines: 10,
             numberOfRows: 9,
             numberOfColumns: 9,
+            numberOfMines: 10,
             status: "playing", // playing, clear, gameover
-            fields: Array(16).fill(Array(30).fill(1)),
+            fields: Array(9).fill(Array(9).fill(1)),
         };
     }
+
+    startNewGame = (level) => {
+        switch (level) {
+            case "easy":
+                this.setState({
+                    numberOfRows: 9,
+                    numberOfColumns: 9,
+                    numberOfMines: 10,
+                    fields: Array(9).fill(Array(9).fill(1)),
+                });
+                break;
+            case "medium":
+                this.setState({
+                    numberOfRows: 16,
+                    numberOfColumns: 16,
+                    numberOfMines: 40,
+                    fields: Array(16).fill(Array(16).fill(1)),
+                });
+                break;
+            case "hard":
+                this.setState({
+                    numberOfRows: 16,
+                    numberOfColumns: 30,
+                    numberOfMines: 100,
+                    fields: Array(16).fill(Array(30).fill(1)),
+                });
+                break;
+            default:
+                break;
+        }
+        console.log(this.state);
+    };
 
     fieldRow = fieldsInThisRow => {
         return fieldsInThisRow.map((field, index) => <Field key={index} neighborCount={1} hasMine={!!field}/>);
@@ -29,7 +61,7 @@ export class Minesweeper extends React.Component {
 
     handleChangeLevel = (event) => {
         this.setState({ level: event.target.value });
-        console.log(`Level changed to ${event.target.value}.`);
+        this.startNewGame(event.target.value);
     };
 
     levelChooser = () => (
