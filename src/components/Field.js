@@ -6,7 +6,7 @@ import { UntouchedField } from "./UntouchedField";
 
 export class Field extends React.Component {
     state = {
-        isRevealed: false,
+        isRevealed: true, // set this to false for production
     };
 
     handleReveal = () => {

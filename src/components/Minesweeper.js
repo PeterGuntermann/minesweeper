@@ -16,6 +16,26 @@ export class Minesweeper extends React.Component {
         };
     }
 
+    createNewBoard = (numberOfRows, numberOfColumns, numberOfMines) => {
+        let fields = Array(numberOfRows).fill(Array(numberOfColumns).fill(0));
+        let minePositions = new Set();
+
+        while (minePositions.size < numberOfMines) {
+            const randomRow = Math.floor((Math.random() * numberOfRows));
+            const randomColumn = Math.floor((Math.random() * numberOfRows));
+            minePositions.add({
+                row: randomRow,
+                column: randomColumn,
+            });
+        }
+
+        minePositions.forEach(mine => {
+            fields[mine.row][mine.column] = 1;
+        });
+        console.log(minePositions);
+        return fields;
+    };
+
     startNewGame = (level) => {
         switch (level) {
             case "easy":
@@ -23,7 +43,7 @@ export class Minesweeper extends React.Component {
                     numberOfRows: 9,
                     numberOfColumns: 9,
                     numberOfMines: 10,
-                    fields: Array(9).fill(Array(9).fill(1)),
+                    fields: this.createNewBoard(9, 9, 10),
                 });
                 break;
             case "medium":
@@ -31,7 +51,7 @@ export class Minesweeper extends React.Component {
                     numberOfRows: 16,
                     numberOfColumns: 16,
                     numberOfMines: 40,
-                    fields: Array(16).fill(Array(16).fill(1)),
+                    fields: this.createNewBoard(16, 16, 40),
                 });
                 break;
             case "hard":
@@ -39,7 +59,7 @@ export class Minesweeper extends React.Component {
                     numberOfRows: 16,
                     numberOfColumns: 30,
                     numberOfMines: 100,
-                    fields: Array(16).fill(Array(30).fill(1)),
+                    fields: this.createNewBoard(16, 30, 100),
                 });
                 break;
             default:
