@@ -4,7 +4,16 @@ import { MineField } from "./MineField";
 import { RevealedField } from "./RevealedField";
 import { UntouchedField } from "./UntouchedField";
 
-export class Field extends React.Component {
+interface Props {
+    neighborCount: number,
+    hasMine: boolean
+}
+
+interface State {
+    isRevealed: boolean
+}
+
+export class Field extends React.Component<Props, State> {
     state = {
         isRevealed: true, // set this to false for production
     };
