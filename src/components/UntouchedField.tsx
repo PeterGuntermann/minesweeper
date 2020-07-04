@@ -1,9 +1,9 @@
 import * as React from "react";
 
-interface Props {
+interface UntouchedFieldProps {
     onReveal: any
 }
 
-export const UntouchedField = (props: Props) => (
+export const UntouchedField = (props: UntouchedFieldProps) => (
     <div className="field untouched" onClick={props.onReveal}/>
 );

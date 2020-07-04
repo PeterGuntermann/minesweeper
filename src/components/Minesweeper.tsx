@@ -4,10 +4,10 @@ import { Field } from "./Field";
 import { MinePosition } from "../types/mine-position.interface";
 import { Level } from "../types/level.enum";
 
-interface Props {
+interface MinesweeperProps {
 }
 
-interface State {
+interface MinesweeperState {
     level: Level,
     numberOfRows: number,
     numberOfColumns: number,
@@ -15,7 +15,7 @@ interface State {
     fields: Array<Array<number>>
 }
 
-export class Minesweeper extends React.Component<Props, State> {
+export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperState> {
     constructor(props: any) {
         super(props);
         this.state = {
