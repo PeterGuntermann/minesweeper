@@ -1,6 +1,5 @@
 import * as React from "react";
-import "../styles/board.css";
-import "../styles/minesweeper.css";
+import "../styles/minesweeper.scss";
 import { Field } from "./Field";
 import { MinePosition } from "../types/mine-position.interface";
 import { Level } from "../types/level.enum";
