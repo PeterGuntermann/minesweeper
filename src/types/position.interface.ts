@@ -1,4 +1,4 @@
-export interface MinePosition {
+export interface Position {
     row: number;
     column: number;
 }

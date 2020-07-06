@@ -1,7 +1,7 @@
 import * as React from "react";
 import "../styles/minesweeper.scss";
 import { Field } from "./Field";
-import { MinePosition } from "../types/mine-position.interface";
+import { Position } from "../types/position.interface";
 import { Level } from "../types/level.enum";
 
 interface MinesweeperProps {
@@ -38,12 +38,12 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
             isRevealed: true
         }));
         let
-            minePositions: Set<MinePosition> = new Set();
+            minePositions: Set<Position> = new Set();
 
         while (minePositions.size < numberOfMines) {
             const randomRow = Math.floor((Math.random() * numberOfRows));
             const randomColumn = Math.floor((Math.random() * numberOfRows));
-            const position: MinePosition = {
+            const position: Position = {
                 row: randomRow,
                 column: randomColumn
             }
@@ -52,7 +52,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
 
         fields.forEach((fieldRow, rowIndex) => {
             fieldRow.forEach((field, colIndex) => {
-                const position: MinePosition = { row: rowIndex, column: colIndex };
+                const position: Position = { row: rowIndex, column: colIndex };
                 const isMinePosition = minePositions.has(position);
                 if (isMinePosition)
                     console.log(rowIndex, colIndex);
