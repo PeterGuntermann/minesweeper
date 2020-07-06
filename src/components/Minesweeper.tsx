@@ -12,7 +12,12 @@ interface MinesweeperState {
     numberOfRows: number,
     numberOfColumns: number,
     numberOfMines: number,
-    fields: Array<Array<number>>
+    fields: FieldModel[][]
+}
+
+export interface FieldModel {
+    hasMine: boolean;
+    isRevealed: boolean;
 }
 
 export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperState> {
@@ -28,8 +33,12 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     }
 
     createNewBoard = (numberOfRows: number, numberOfColumns: number, numberOfMines: number) => {
-        let fields = Array(numberOfRows).fill(Array(numberOfColumns).fill(0));
-        let minePositions: Set<MinePosition> = new Set();
+        let fields: FieldModel[][] = Array<FieldModel[]>(numberOfRows).fill(Array<FieldModel>(numberOfColumns).fill({
+            hasMine: false,
+            isRevealed: true
+        }));
+        let
+            minePositions: Set<MinePosition> = new Set();
 
         while (minePositions.size < numberOfMines) {
             const randomRow = Math.floor((Math.random() * numberOfRows));
@@ -41,12 +50,22 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
             minePositions.add(position);
         }
 
+        fields.forEach((fieldRow, rowIndex) => {
+            fieldRow.forEach((field, colIndex) => {
+                const position: MinePosition = { row: rowIndex, column: colIndex };
+                const isMinePosition = minePositions.has(position);
+                if (isMinePosition)
+                    console.log(rowIndex, colIndex);
+            })
+        })
         minePositions.forEach((mine) => {
-            fields[mine.row][mine.column] = 1;
+            console.log("col: " + mine.column + ", row: " + mine.row);
+            // fields[mine.row][mine.column].hasMine = true;
         });
         console.log(minePositions);
         return fields;
-    };
+    }
+    ;
 
     startNewGame = (level: Level) => {
         switch (level) {
@@ -84,7 +103,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         return fieldsInThisRow.map((field: any, index: number) => (
             <Field key={index}
                    neighborCount={1}
-                   hasMine={!!field}/>));
+                   fieldModel={field}/>));
     };
 
     board = () => {
