@@ -37,25 +37,25 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
             hasMine: false,
             isRevealed: true
         }));
-        let
-            minePositions: Set<Position> = new Set();
+        let minePositions: Array<Position> = new Array<Position>();
 
-        while (minePositions.size < numberOfMines) {
+        while (minePositions.length < numberOfMines) {
             const randomRow = Math.floor((Math.random() * numberOfRows));
             const randomColumn = Math.floor((Math.random() * numberOfRows));
             const position: Position = {
                 row: randomRow,
                 column: randomColumn
             }
-            minePositions.add(position);
+            minePositions.push(position);
         }
 
         fields.forEach((fieldRow, rowIndex) => {
             fieldRow.forEach((field, colIndex) => {
-                const position: Position = { row: rowIndex, column: colIndex };
-                const isMinePosition = minePositions.has(position);
-                if (isMinePosition)
-                    console.log(rowIndex, colIndex);
+                const isMinePosition = minePositions.some((minePosition) => minePosition.column === colIndex && minePosition.row === rowIndex)
+                console.log("rowIndex: " + rowIndex);
+                console.log("colIndex: " + colIndex);
+                console.log("isMinePosition: " + isMinePosition);
+                field.hasMine = isMinePosition;
             })
         })
         minePositions.forEach((mine) => {
@@ -63,6 +63,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
             // fields[mine.row][mine.column].hasMine = true;
         });
         console.log(minePositions);
+        console.log(fields);
         return fields;
     }
     ;
