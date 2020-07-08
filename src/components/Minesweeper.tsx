@@ -29,10 +29,10 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     }
 
     createNewBoard = (numberOfRows: number, numberOfColumns: number, numberOfMines: number) => {
-        let fields: FieldModel[][] = Array<FieldModel[]>(numberOfRows).fill(Array<FieldModel>(numberOfColumns).fill({
-            hasMine: false,
-            isRevealed: true
-        }));
+        let fields: FieldModel[][] = Array<FieldModel[]>(numberOfRows).fill(
+            Array<FieldModel>(numberOfColumns).fill(
+                { hasMine: false, isRevealed: true }));
+
         let minePositions: Array<Position> = new Array<Position>();
 
         while (minePositions.length < numberOfMines) {
@@ -47,7 +47,8 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
 
         fields.forEach((fieldRow, rowIndex) => {
             fieldRow.forEach((field, colIndex) => {
-                const isMinePosition = minePositions.some((minePosition) => minePosition.column === colIndex && minePosition.row === rowIndex)
+                const isMinePosition = minePositions.some(
+                    (minePosition) => minePosition.column === colIndex && minePosition.row === rowIndex)
                 console.log("rowIndex: " + rowIndex);
                 console.log("colIndex: " + colIndex);
                 console.log("isMinePosition: " + isMinePosition);
@@ -61,34 +62,33 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         console.log(minePositions);
         console.log(fields);
         return fields;
-    }
-    ;
+    };
 
     startNewGame = (level: Level) => {
         switch (level) {
             case Level.Easy:
                 this.setState({
-                    numberOfRows: 9,
-                    numberOfColumns: 9,
-                    numberOfMines: 10,
-                    fields: this.createNewBoard(9, 9, 10),
-                });
+                                  numberOfRows: 9,
+                                  numberOfColumns: 9,
+                                  numberOfMines: 10,
+                                  fields: this.createNewBoard(9, 9, 10),
+                              });
                 break;
             case Level.Medium:
                 this.setState({
-                    numberOfRows: 16,
-                    numberOfColumns: 16,
-                    numberOfMines: 40,
-                    fields: this.createNewBoard(16, 16, 40),
-                });
+                                  numberOfRows: 16,
+                                  numberOfColumns: 16,
+                                  numberOfMines: 40,
+                                  fields: this.createNewBoard(16, 16, 40),
+                              });
                 break;
             case Level.Hard:
                 this.setState({
-                    numberOfRows: 16,
-                    numberOfColumns: 30,
-                    numberOfMines: 100,
-                    fields: this.createNewBoard(16, 30, 100),
-                });
+                                  numberOfRows: 16,
+                                  numberOfColumns: 30,
+                                  numberOfMines: 100,
+                                  fields: this.createNewBoard(16, 30, 100),
+                              });
                 break;
             default:
                 break;
