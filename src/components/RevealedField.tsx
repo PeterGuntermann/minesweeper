@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
 interface RevealedFieldProps {
-    neighborCount: number
+    neighborCount: number;
 }
 
 export const RevealedField = (props: RevealedFieldProps) => (

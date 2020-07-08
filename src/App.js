@@ -1,21 +1,23 @@
 import React from 'react';
 import './styles/App.scss';
-import { Minesweeper } from "./components/Minesweeper";
+import { Minesweeper } from './components/Minesweeper';
 
 function App() {
-    return (<>
-        <div className="App">
-            <header>
-                <h1>Minesweeper</h1>
-            </header>
+    return (
+        <>
+            <div className="App">
+                <header>
+                    <h1>Minesweeper</h1>
+                </header>
 
-            <Minesweeper/>
+                <Minesweeper />
 
-            <footer>
-                <p>Made with React.JS</p>
-            </footer>
-        </div>
-    </>);
+                <footer>
+                    <p>Made with React.JS</p>
+                </footer>
+            </div>
+        </>
+    );
 }
 
 export default App;

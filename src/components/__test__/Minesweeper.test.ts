@@ -1,8 +1,8 @@
-import { unmountComponentAtNode } from "react-dom";
+import { unmountComponentAtNode } from 'react-dom';
 
 let container: any = null;
 beforeEach(() => {
-    container = document.createElement("div");
+    container = document.createElement('div');
     document.body.appendChild(container);
 });
 

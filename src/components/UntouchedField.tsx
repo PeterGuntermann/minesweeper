@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
 interface UntouchedFieldProps {
-    onReveal: any
+    onReveal: any;
 }
 
 export const UntouchedField = (props: UntouchedFieldProps) => (
-    <div className="field untouched" onClick={props.onReveal}/>
+    <div className="field untouched" onClick={props.onReveal} />
 );

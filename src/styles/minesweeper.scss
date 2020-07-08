@@ -1,90 +1,94 @@
 .choose-level {
-  margin-bottom: 25px;
-  display: flex;
-  justify-content: center;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
 
-  label {
-    margin-right: 7px;
-  }
+    label {
+        margin-right: 7px;
+    }
 }
 
 .board {
-  margin: 0 auto;
-  font-size: 1.25rem;
+    margin: 0 auto;
+    font-size: 1.25rem;
 
-  &.level-easy {
-    width: calc(9 * 30px);
-    height: calc(9 * 30px);
-  }
+    &.level-easy {
+        width: calc(9 * 30px);
+        height: calc(9 * 30px);
+    }
 
-  &.level-medium {
-    width: calc(16 * 30px);
-    height: calc(16 * 30px);
-  }
+    &.level-medium {
+        width: calc(16 * 30px);
+        height: calc(16 * 30px);
+    }
 
-  &.level-hard {
-    width: calc(30 * 30px);
-    height: calc(16 * 30px);
-  }
+    &.level-hard {
+        width: calc(30 * 30px);
+        height: calc(16 * 30px);
+    }
 }
 
 .field {
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  border: 1px solid #333;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 1px solid #333;
 
-  &.untouched {
-    background: rgb(68, 68, 255);
-    background: linear-gradient(135deg, rgba(68, 68, 255, 1) 0%, rgba(0, 221, 255, 1) 100%);
-  }
+    &.untouched {
+        background: rgb(68, 68, 255);
+        background: linear-gradient(
+            135deg,
+            rgba(68, 68, 255, 1) 0%,
+            rgba(0, 221, 255, 1) 100%
+        );
+    }
 
-  &.revealed {
-    background: #ccc;
-    font-weight: bold;
-  }
+    &.revealed {
+        background: #ccc;
+        font-weight: bold;
+    }
 
-  &.has-mine {
-    background: red;
-  }
+    &.has-mine {
+        background: red;
+    }
 
-  &.neighbor-count-0 {
-    color: transparent;
-  }
+    &.neighbor-count-0 {
+        color: transparent;
+    }
 
-  &.neighbor-count-1 {
-    color: blue;
-  }
+    &.neighbor-count-1 {
+        color: blue;
+    }
 
-  &.neighbor-count-2 {
-    color: green;
-  }
+    &.neighbor-count-2 {
+        color: green;
+    }
 
-  &.neighbor-count-3 {
-    color: red;
-  }
+    &.neighbor-count-3 {
+        color: red;
+    }
 
-  &.neighbor-count-4 {
-    color: blueviolet;
-  }
+    &.neighbor-count-4 {
+        color: blueviolet;
+    }
 
-  &.neighbor-count-5 {
-    color: brown;
-  }
+    &.neighbor-count-5 {
+        color: brown;
+    }
 
-  &.neighbor-count-6 {
-    color: teal;
-  }
+    &.neighbor-count-6 {
+        color: teal;
+    }
 
-  &.neighbor-count-7 {
-    color: darkblue;
-  }
+    &.neighbor-count-7 {
+        color: darkblue;
+    }
 
-  &.neighbor-count-8 {
-    color: grey;
-  }
+    &.neighbor-count-8 {
+        color: grey;
+    }
 }

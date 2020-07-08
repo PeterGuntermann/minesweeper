@@ -1,17 +1,17 @@
-import * as React from "react";
+import * as React from 'react';
 import '../styles/minesweeper.scss';
-import { MineField } from "./MineField";
-import { RevealedField } from "./RevealedField";
-import { UntouchedField } from "./UntouchedField";
-import { FieldModel } from "../types/field.interface";
+import { MineField } from './MineField';
+import { RevealedField } from './RevealedField';
+import { UntouchedField } from './UntouchedField';
+import { FieldModel } from '../types/field.interface';
 
 interface FieldProps {
-    neighborCount: number,
-    fieldModel: FieldModel
+    neighborCount: number;
+    fieldModel: FieldModel;
 }
 
 interface FieldState {
-    isRevealed: boolean
+    isRevealed: boolean;
 }
 
 export class Field extends React.Component<FieldProps, FieldState> {
@@ -28,11 +28,13 @@ export class Field extends React.Component<FieldProps, FieldState> {
         const { neighborCount, fieldModel } = this.props;
 
         if (isRevealed) {
-            return fieldModel.hasMine
-                ? <MineField/>
-                : <RevealedField neighborCount={neighborCount}/>;
+            return fieldModel.hasMine ? (
+                <MineField />
+            ) : (
+                <RevealedField neighborCount={neighborCount} />
+            );
         }
 
-        return <UntouchedField onReveal={this.handleReveal}/>;
+        return <UntouchedField onReveal={this.handleReveal} />;
     }
 }
