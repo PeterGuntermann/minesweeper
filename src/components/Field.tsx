@@ -3,7 +3,7 @@ import '../styles/minesweeper.scss';
 import { MineField } from "./MineField";
 import { RevealedField } from "./RevealedField";
 import { UntouchedField } from "./UntouchedField";
-import { FieldModel } from "./Minesweeper";
+import { FieldModel } from "../types/field.interface";
 
 interface FieldProps {
     neighborCount: number,

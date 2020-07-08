@@ -3,6 +3,7 @@ import "../styles/minesweeper.scss";
 import { Field } from "./Field";
 import { Position } from "../types/position.interface";
 import { Level } from "../types/level.enum";
+import { FieldModel } from "../types/field.interface";
 
 interface MinesweeperProps {
 }
@@ -13,11 +14,6 @@ interface MinesweeperState {
     numberOfColumns: number,
     numberOfMines: number,
     fields: FieldModel[][]
-}
-
-export interface FieldModel {
-    hasMine: boolean;
-    isRevealed: boolean;
 }
 
 export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperState> {
