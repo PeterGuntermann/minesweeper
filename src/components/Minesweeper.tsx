@@ -12,7 +12,7 @@ interface MinesweeperState {
     numberOfRows: number;
     numberOfColumns: number;
     numberOfMines: number;
-    fields: FieldModel[][];
+    fields: FieldModel[];
 }
 
 export class Minesweeper extends React.Component<
@@ -26,7 +26,7 @@ export class Minesweeper extends React.Component<
             numberOfRows: 9,
             numberOfColumns: 9,
             numberOfMines: 10,
-            fields: Array(9).fill(Array(9).fill(1)),
+            fields: Array(9 * 9).fill({}),
         };
     }
 
@@ -35,12 +35,11 @@ export class Minesweeper extends React.Component<
         numberOfColumns: number,
         numberOfMines: number
     ) => {
-        let fields: FieldModel[][] = Array<FieldModel[]>(numberOfRows).fill(
-            Array<FieldModel>(numberOfColumns).fill({
-                hasMine: false,
-                isRevealed: true,
-            })
-        );
+        const numberOfFields = numberOfRows * numberOfColumns;
+        let fields: FieldModel[] = Array<FieldModel>(numberOfFields).fill({
+            hasMine: false,
+            isRevealed: true,
+        });
 
         let minePositions: Array<Position> = new Array<Position>();
 
@@ -54,21 +53,26 @@ export class Minesweeper extends React.Component<
             minePositions.push(position);
         }
 
-        fields.forEach((fieldRow, rowIndex) => {
-            fieldRow.forEach((field, colIndex) => {
-                const isMinePosition = minePositions.some(
-                    (minePosition) =>
-                        minePosition.column === colIndex &&
-                        minePosition.row === rowIndex
-                );
-                console.log('rowIndex: ' + rowIndex);
-                console.log('colIndex: ' + colIndex);
-                console.log('isMinePosition: ' + isMinePosition);
-                field.hasMine = isMinePosition;
-            });
+        fields.forEach((field, index) => {
+            const rowIndex = Math.floor(index / numberOfFields);
+            const colIndex = index % numberOfFields;
+            const isMinePosition = minePositions.some(
+                (minePosition) =>
+                    minePosition.column === colIndex &&
+                    minePosition.row === rowIndex
+            );
+            console.log('rowIndex: ' + rowIndex);
+            console.log('colIndex: ' + colIndex);
+            console.log('isMinePosition: ' + isMinePosition);
+            field.hasMine = isMinePosition;
         });
+
+        console.log('minePositions: ');
         minePositions.forEach((mine) => {
             console.log('col: ' + mine.column + ', row: ' + mine.row);
+            const field = fields[mine.row * numberOfColumns + mine.column];
+            field.hasMine = true;
+            // TODO: 09.07.2020 Das funktioniert in JS einfach nicht - WTF!
             // fields[mine.row][mine.column].hasMine = true;
         });
         console.log(minePositions);
@@ -108,17 +112,13 @@ export class Minesweeper extends React.Component<
         console.log(this.state);
     };
 
-    fieldRow = (fieldsInThisRow: any) => {
-        return fieldsInThisRow.map((field: any, index: number) => (
-            <Field key={index} neighborCount={1} fieldModel={field} />
-        ));
-    };
-
     board = () => {
         const boardCssClasses = `board level-${this.state.level}`;
         return (
             <div className={boardCssClasses}>
-                {this.state.fields.map((row) => this.fieldRow(row))}
+                {this.state.fields.map((field: any, index: number) => (
+                    <Field key={index} neighborCount={1} fieldModel={field} />
+                ))}
             </div>
         );
     };
