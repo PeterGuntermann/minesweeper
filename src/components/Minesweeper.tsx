@@ -39,6 +39,7 @@ export class Minesweeper extends React.Component<
         let fields: FieldModel[] = Array<FieldModel>(numberOfFields).fill({
             hasMine: false,
             isRevealed: true,
+            position: { x: 0, y: 0 },
         });
 
         let minePositions: Array<Position> = new Array<Position>();
@@ -47,8 +48,8 @@ export class Minesweeper extends React.Component<
             const randomRow = Math.floor(Math.random() * numberOfRows);
             const randomColumn = Math.floor(Math.random() * numberOfRows);
             const position: Position = {
-                row: randomRow,
-                column: randomColumn,
+                y: randomRow,
+                x: randomColumn,
             };
             minePositions.push(position);
         }
@@ -58,8 +59,7 @@ export class Minesweeper extends React.Component<
             const colIndex = index % numberOfFields;
             const isMinePosition = minePositions.some(
                 (minePosition) =>
-                    minePosition.column === colIndex &&
-                    minePosition.row === rowIndex
+                    minePosition.x === colIndex && minePosition.y === rowIndex
             );
             console.log('rowIndex: ' + rowIndex);
             console.log('colIndex: ' + colIndex);
@@ -69,8 +69,8 @@ export class Minesweeper extends React.Component<
 
         console.log('minePositions: ');
         minePositions.forEach((mine) => {
-            console.log('col: ' + mine.column + ', row: ' + mine.row);
-            const field = fields[mine.row * numberOfColumns + mine.column];
+            console.log('col: ' + mine.x + ', row: ' + mine.y);
+            const field = fields[mine.y * numberOfColumns + mine.x];
             field.hasMine = true;
             // TODO: 09.07.2020 Das funktioniert in JS einfach nicht - WTF!
             // fields[mine.row][mine.column].hasMine = true;
