@@ -94,4 +94,54 @@ export class Board {
     }
 
     private calculateNumberOfMineNeighbors() {}
+
+    private getNeighborsOfField(field: FieldModel): FieldModel[] {
+        const centerX = field.position.x;
+        const centerY = field.position.y;
+        const centerIsNotAtTopBoundary = centerY - 1 >= 0;
+        const centerIsNotAtLeftBoundary = centerX - 1 >= 0;
+        const centerIsNotAtRightBoundary = centerX + 1 < this.numberOfColumns;
+        const centerIsNotAtBottomBoundary = centerY - 1 < this.numberOfRows;
+
+        return this.fields.filter((potentialNeighborField) => {
+            const x = potentialNeighborField.position.x;
+            const y = potentialNeighborField.position.y;
+            let isTopLeft = false;
+            let isTop = false;
+            let isTopRight = false;
+            let isLeft = false;
+            let isRight = false;
+            let isBottomLeft = false;
+            let isBottom = false;
+            let isBottomRight = false;
+
+            if (centerIsNotAtTopBoundary && centerIsNotAtLeftBoundary)
+                isTopLeft = x === centerX - 1 && y === centerY - 1;
+            if (centerIsNotAtTopBoundary)
+                isTop = x === centerX && y === centerY - 1;
+            if (centerIsNotAtTopBoundary && centerIsNotAtRightBoundary)
+                isTopRight = x === centerX + 1 && y === centerY - 1;
+            if (centerIsNotAtLeftBoundary)
+                isLeft = x === centerX - 1 && y === centerY;
+            if (centerIsNotAtRightBoundary)
+                isRight = x === centerX + 1 && y === centerY;
+            if (centerIsNotAtBottomBoundary && centerIsNotAtLeftBoundary)
+                isBottomLeft = x === centerX - 1 && y === centerY + 1;
+            if (centerIsNotAtBottomBoundary)
+                isBottom = x === centerX && y === centerY + 1;
+            if (centerIsNotAtBottomBoundary && centerIsNotAtRightBoundary)
+                isBottomRight = x === centerX + 1 && y === centerY + 1;
+
+            const isNeighbor =
+                isTopLeft ||
+                isTop ||
+                isTopRight ||
+                isLeft ||
+                isRight ||
+                isBottomLeft ||
+                isBottom ||
+                isBottomRight;
+            return isNeighbor;
+        });
+    }
 }
