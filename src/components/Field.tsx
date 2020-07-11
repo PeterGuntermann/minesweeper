@@ -6,7 +6,6 @@ import { UntouchedField } from './UntouchedField';
 import { FieldModel } from '../types/field.interface';
 
 interface FieldProps {
-    neighborCount: number;
     fieldModel: FieldModel;
 }
 
@@ -25,13 +24,15 @@ export class Field extends React.Component<FieldProps, FieldState> {
 
     render() {
         const { isRevealed } = this.state;
-        const { neighborCount, fieldModel } = this.props;
+        const { fieldModel } = this.props;
 
         if (isRevealed) {
             return fieldModel.hasMine ? (
                 <MineField />
             ) : (
-                <RevealedField neighborCount={neighborCount} />
+                <RevealedField
+                    neighborCount={fieldModel.numberOfMineNeighbors}
+                />
             );
         }
 

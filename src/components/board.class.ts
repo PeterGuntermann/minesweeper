@@ -51,15 +51,14 @@ export class Board {
 
     private initializeBlankFields() {
         for (let i = 0; i < this.numberOfFields; i++) {
-            this.fields.push(<FieldModel>{
+            this.fields.push({
                 hasMine: false,
-                isRevealed: true,
                 position: {
                     x: i % this.numberOfColumns,
                     y: Math.floor(i / this.numberOfColumns),
                 },
                 numberOfMineNeighbors: 0,
-            });
+            } as FieldModel);
         }
     }
 

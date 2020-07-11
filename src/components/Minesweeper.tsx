@@ -4,6 +4,7 @@ import { Field } from './Field';
 import { Position } from '../types/position.interface';
 import { Level } from '../types/level.enum';
 import { FieldModel } from '../types/field.interface';
+import { Board } from './board.class';
 
 interface MinesweeperProps {}
 
@@ -13,6 +14,7 @@ interface MinesweeperState {
     numberOfColumns: number;
     numberOfMines: number;
     fields: FieldModel[];
+    board: Board;
 }
 
 export class Minesweeper extends React.Component<
@@ -27,6 +29,7 @@ export class Minesweeper extends React.Component<
             numberOfColumns: 9,
             numberOfMines: 10,
             fields: Array(9 * 9).fill({}),
+            board: new Board(9, 9, 10),
         };
     }
 
@@ -34,10 +37,11 @@ export class Minesweeper extends React.Component<
         numberOfRows: number,
         numberOfColumns: number,
         numberOfMines: number
-    ) => {
+    ): FieldModel[] => {
         const numberOfFields = numberOfRows * numberOfColumns;
         let fields: FieldModel[] = Array<FieldModel>(numberOfFields).fill({
             hasMine: false,
+            numberOfMineNeighbors: 0,
             position: { x: 0, y: 0 },
         });
 
@@ -87,6 +91,7 @@ export class Minesweeper extends React.Component<
                     numberOfColumns: 9,
                     numberOfMines: 10,
                     fields: this.createNewBoard(9, 9, 10),
+                    board: new Board(9, 9, 10),
                 });
                 break;
             case Level.Medium:
@@ -95,6 +100,7 @@ export class Minesweeper extends React.Component<
                     numberOfColumns: 16,
                     numberOfMines: 40,
                     fields: this.createNewBoard(16, 16, 40),
+                    board: new Board(16, 16, 40),
                 });
                 break;
             case Level.Hard:
@@ -103,6 +109,7 @@ export class Minesweeper extends React.Component<
                     numberOfColumns: 30,
                     numberOfMines: 100,
                     fields: this.createNewBoard(16, 30, 100),
+                    board: new Board(30, 16, 10),
                 });
                 break;
             default:
@@ -115,9 +122,11 @@ export class Minesweeper extends React.Component<
         const boardCssClasses = `board level-${this.state.level}`;
         return (
             <div className={boardCssClasses}>
-                {this.state.fields.map((field: any, index: number) => (
-                    <Field key={index} neighborCount={1} fieldModel={field} />
-                ))}
+                {this.state.board.allFields.map(
+                    (field: FieldModel, index: number) => (
+                        <Field key={index} fieldModel={field} />
+                    )
+                )}
             </div>
         );
     };
