@@ -1,5 +1,6 @@
 import { FieldModel } from '../types/field.interface';
 import { Position } from '../types/position.interface';
+import ts from 'typescript/lib/tsserverlibrary';
 
 export class Board {
     private fields: FieldModel[];
@@ -15,6 +16,7 @@ export class Board {
         this.initializeBlankFields();
         this.rollMinePositions();
         this.distributeMines();
+        this.calculateNumberOfMineNeighbors();
     }
 
     get numberOfFields(): number {
@@ -29,6 +31,25 @@ export class Board {
         return this.minePositions;
     }
 
+    getFieldByPosition(position: Position): FieldModel | undefined {
+        const positionIsInvalid =
+            position.x >= this.numberOfColumns ||
+            position.x < 0 ||
+            position.y >= this.numberOfRows ||
+            position.y < 0;
+
+        if (positionIsInvalid) {
+            console.warn('Tried to get field by invalid position.', position);
+            return undefined;
+        }
+
+        return this.fields.find(
+            (field) =>
+                field.position.x === position.x &&
+                field.position.y === position.y
+        );
+    }
+
     private initializeBlankFields() {
         for (let i = 0; i < this.numberOfFields; i++) {
             this.fields.push(<FieldModel>{
@@ -38,6 +59,7 @@ export class Board {
                     x: i % this.numberOfColumns,
                     y: Math.floor(i / this.numberOfColumns),
                 },
+                numberOfMineNeighbors: 0,
             });
         }
     }
@@ -62,13 +84,15 @@ export class Board {
 
     private distributeMines() {
         this.minePositions.forEach((minePosition) => {
-            const field =
-                this.allFields.find(
-                    (f) =>
-                        f.position.x === minePosition.x &&
-                        f.position.y === minePosition.y
-                ) ?? <FieldModel>{};
-            field.hasMine = true;
+            const field = this.getFieldByPosition(minePosition);
+
+            if (field !== undefined) {
+                field.hasMine = true;
+            } else {
+                console.warn('Tried to set a mine on a undefined field!');
+            }
         });
     }
+
+    private calculateNumberOfMineNeighbors() {}
 }

@@ -38,7 +38,6 @@ export class Minesweeper extends React.Component<
         const numberOfFields = numberOfRows * numberOfColumns;
         let fields: FieldModel[] = Array<FieldModel>(numberOfFields).fill({
             hasMine: false,
-            isRevealed: true,
             position: { x: 0, y: 0 },
         });
 
