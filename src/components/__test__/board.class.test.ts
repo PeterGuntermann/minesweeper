@@ -23,9 +23,9 @@ describe('Board', () => {
     });
 
     test('should roll mine positions that are all different', () => {
-        const numberOfColumns = 3;
-        const numberOfRows = 2;
-        const numberOfMines = 4;
+        const numberOfColumns = 9;
+        const numberOfRows = 9;
+        const numberOfMines = 10;
 
         const board = new Board(numberOfColumns, numberOfRows, numberOfMines);
 
@@ -48,10 +48,17 @@ describe('Board', () => {
     });
 
     test('should distribute the mines over the corresponding fields', () => {
-        const numberOfColumns = 3;
-        const numberOfRows = 2;
-        const numberOfMines = 4;
+        const numberOfColumns = 9;
+        const numberOfRows = 9;
+        const numberOfMines = 10;
 
         const board = new Board(numberOfColumns, numberOfRows, numberOfMines);
+
+        const mineFields = board.allFields.filter((f) => f.hasMine);
+        const nonMineFields = board.allFields.filter((f) => !f.hasMine);
+        expect(mineFields).toHaveLength(numberOfMines);
+        expect(nonMineFields).toHaveLength(
+            board.numberOfFields - numberOfMines
+        );
     });
 });

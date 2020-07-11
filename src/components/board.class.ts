@@ -3,7 +3,7 @@ import { Position } from '../types/position.interface';
 
 export class Board {
     private fields: FieldModel[];
-    private minePositions: Position[] = new Array<Position>();
+    private minePositions: Position[];
 
     constructor(
         public readonly numberOfColumns: number,
@@ -62,7 +62,13 @@ export class Board {
 
     private distributeMines() {
         this.minePositions.forEach((minePosition) => {
-            console.log(minePosition);
+            const field =
+                this.allFields.find(
+                    (f) =>
+                        f.position.x === minePosition.x &&
+                        f.position.y === minePosition.y
+                ) ?? <FieldModel>{};
+            field.hasMine = true;
         });
     }
 }
