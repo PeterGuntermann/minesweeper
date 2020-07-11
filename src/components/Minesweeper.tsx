@@ -1,7 +1,6 @@
 import * as React from 'react';
 import '../styles/minesweeper.scss';
 import { Field } from './Field';
-import { Position } from '../types/position.interface';
 import { Level } from '../types/level.enum';
 import { FieldModel } from '../types/field.interface';
 import { Board } from './board.class';
@@ -10,10 +9,6 @@ interface MinesweeperProps {}
 
 interface MinesweeperState {
     level: Level;
-    numberOfRows: number;
-    numberOfColumns: number;
-    numberOfMines: number;
-    fields: FieldModel[];
     board: Board;
 }
 
@@ -25,91 +20,25 @@ export class Minesweeper extends React.Component<
         super(props);
         this.state = {
             level: Level.Easy,
-            numberOfRows: 9,
-            numberOfColumns: 9,
-            numberOfMines: 10,
-            fields: Array(9 * 9).fill({}),
             board: new Board(9, 9, 10),
         };
     }
-
-    createNewBoard = (
-        numberOfRows: number,
-        numberOfColumns: number,
-        numberOfMines: number
-    ): FieldModel[] => {
-        const numberOfFields = numberOfRows * numberOfColumns;
-        let fields: FieldModel[] = Array<FieldModel>(numberOfFields).fill({
-            hasMine: false,
-            numberOfMineNeighbors: 0,
-            position: { x: 0, y: 0 },
-        });
-
-        let minePositions: Array<Position> = new Array<Position>();
-
-        while (minePositions.length < numberOfMines) {
-            const randomRow = Math.floor(Math.random() * numberOfRows);
-            const randomColumn = Math.floor(Math.random() * numberOfRows);
-            const position: Position = {
-                y: randomRow,
-                x: randomColumn,
-            };
-            minePositions.push(position);
-        }
-
-        fields.forEach((field, index) => {
-            const rowIndex = Math.floor(index / numberOfFields);
-            const colIndex = index % numberOfFields;
-            const isMinePosition = minePositions.some(
-                (minePosition) =>
-                    minePosition.x === colIndex && minePosition.y === rowIndex
-            );
-            console.log('rowIndex: ' + rowIndex);
-            console.log('colIndex: ' + colIndex);
-            console.log('isMinePosition: ' + isMinePosition);
-            field.hasMine = isMinePosition;
-        });
-
-        console.log('minePositions: ');
-        minePositions.forEach((mine) => {
-            console.log('col: ' + mine.x + ', row: ' + mine.y);
-            const field = fields[mine.y * numberOfColumns + mine.x];
-            field.hasMine = true;
-            // TODO: 09.07.2020 Das funktioniert in JS einfach nicht - WTF!
-            // fields[mine.row][mine.column].hasMine = true;
-        });
-        console.log(minePositions);
-        console.log(fields);
-        return fields;
-    };
 
     startNewGame = (level: Level) => {
         switch (level) {
             case Level.Easy:
                 this.setState({
-                    numberOfRows: 9,
-                    numberOfColumns: 9,
-                    numberOfMines: 10,
-                    fields: this.createNewBoard(9, 9, 10),
                     board: new Board(9, 9, 10),
                 });
                 break;
             case Level.Medium:
                 this.setState({
-                    numberOfRows: 16,
-                    numberOfColumns: 16,
-                    numberOfMines: 40,
-                    fields: this.createNewBoard(16, 16, 40),
                     board: new Board(16, 16, 40),
                 });
                 break;
             case Level.Hard:
                 this.setState({
-                    numberOfRows: 16,
-                    numberOfColumns: 30,
-                    numberOfMines: 100,
-                    fields: this.createNewBoard(16, 30, 100),
-                    board: new Board(30, 16, 10),
+                    board: new Board(30, 16, 100),
                 });
                 break;
             default:
