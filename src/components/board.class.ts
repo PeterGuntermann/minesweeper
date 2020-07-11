@@ -144,4 +144,12 @@ export class Board {
             return isNeighbor;
         });
     }
+
+    private getNumberOfNeighborsForField(field: FieldModel) {
+        const neighbors = this.getNeighborsOfField(field);
+        const neighborsWithMine = neighbors.filter(
+            (neighbor) => neighbor.hasMine
+        );
+        return neighborsWithMine.length;
+    }
 }
