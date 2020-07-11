@@ -1,6 +1,5 @@
 import { FieldModel } from '../types/field.interface';
 import { Position } from '../types/position.interface';
-import ts from 'typescript/lib/tsserverlibrary';
 
 export class Board {
     private fields: FieldModel[];
