@@ -61,4 +61,15 @@ describe('Board', () => {
             board.numberOfFields - numberOfMines
         );
     });
+
+    test('should calculate the number of mine neighbors for each field', () => {
+        const numberOfColumns = 2;
+        const numberOfRows = 2;
+        const numberOfMines = 3;
+
+        const board = new Board(numberOfColumns, numberOfRows, numberOfMines);
+
+        // How could I test this as there is randomness involved?
+        // console.log(board.allFields.map((f) => f.numberOfMineNeighbors));
+    });
 });

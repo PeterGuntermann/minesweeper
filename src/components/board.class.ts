@@ -93,7 +93,21 @@ export class Board {
         });
     }
 
-    private calculateNumberOfMineNeighbors() {}
+    private calculateNumberOfMineNeighbors() {
+        this.fields.forEach((field) => {
+            field.numberOfMineNeighbors = this.getNumberOfMineNeighborsForField(
+                field
+            );
+        });
+    }
+
+    private getNumberOfMineNeighborsForField(field: FieldModel) {
+        const neighbors = this.getNeighborsOfField(field);
+        const neighborsWithMine = neighbors.filter(
+            (neighbor) => neighbor.hasMine
+        );
+        return neighborsWithMine.length;
+    }
 
     private getNeighborsOfField(field: FieldModel): FieldModel[] {
         const centerX = field.position.x;
@@ -143,13 +157,5 @@ export class Board {
                 isBottomRight;
             return isNeighbor;
         });
-    }
-
-    private getNumberOfNeighborsForField(field: FieldModel) {
-        const neighbors = this.getNeighborsOfField(field);
-        const neighborsWithMine = neighbors.filter(
-            (neighbor) => neighbor.hasMine
-        );
-        return neighborsWithMine.length;
     }
 }
