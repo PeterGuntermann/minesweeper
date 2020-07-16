@@ -1,9 +1,9 @@
 import * as React from 'react';
 import '../styles/minesweeper.scss';
-import { Field } from './Field';
-import { Level } from '../types/level.enum';
 import { FieldModel } from '../types/field.interface';
+import { Level } from '../types/level.enum';
 import { Board } from './board.class';
+import { Field } from './Field';
 
 interface MinesweeperProps {}
 
@@ -44,7 +44,6 @@ export class Minesweeper extends React.Component<
             default:
                 break;
         }
-        console.log(this.state);
     };
 
     board = () => {
