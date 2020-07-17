@@ -37,6 +37,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         }
     };
 
+    // TODO: Implement reveal mechanics (win/lose)
     board = () => {
         const boardCssClasses = `board level-${this.state.level}`;
         return (
@@ -53,6 +54,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         this.startNewGame(event.target.value);
     };
 
+    // TODO: Invoke action via button instead of selection change
     levelChooser = () => (
         <div className="choose-level">
             <label>Level: </label>
