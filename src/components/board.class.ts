@@ -2,8 +2,8 @@ import { FieldModel } from '../types/field.interface';
 import { Position } from '../types/position.interface';
 
 export class Board {
-    private fields: FieldModel[];
-    private minePositions: Position[];
+    private readonly fields: FieldModel[];
+    private readonly minePositions: Position[];
 
     constructor(
         public readonly numberOfColumns: number,
@@ -43,9 +43,7 @@ export class Board {
         }
 
         return this.fields.find(
-            (field) =>
-                field.position.x === position.x &&
-                field.position.y === position.y
+            (field) => field.position.x === position.x && field.position.y === position.y
         );
     }
 
@@ -64,7 +62,7 @@ export class Board {
 
     private rollMinePositions() {
         while (this.minePositions.length < this.numberOfMines) {
-            const randomColumn = Math.floor(Math.random() * this.numberOfRows);
+            const randomColumn = Math.floor(Math.random() * this.numberOfColumns);
             const randomRow = Math.floor(Math.random() * this.numberOfRows);
             const position: Position = {
                 x: randomColumn,
@@ -94,17 +92,13 @@ export class Board {
 
     private calculateNumberOfMineNeighbors() {
         this.fields.forEach((field) => {
-            field.numberOfMineNeighbors = this.getNumberOfMineNeighborsForField(
-                field
-            );
+            field.numberOfMineNeighbors = this.getNumberOfMineNeighborsForField(field);
         });
     }
 
     private getNumberOfMineNeighborsForField(field: FieldModel) {
         const neighbors = this.getNeighborsOfField(field);
-        const neighborsWithMine = neighbors.filter(
-            (neighbor) => neighbor.hasMine
-        );
+        const neighborsWithMine = neighbors.filter((neighbor) => neighbor.hasMine);
         return neighborsWithMine.length;
     }
 
@@ -128,24 +122,32 @@ export class Board {
             let isBottom = false;
             let isBottomRight = false;
 
-            if (centerIsNotAtTopBoundary && centerIsNotAtLeftBoundary)
+            if (centerIsNotAtTopBoundary && centerIsNotAtLeftBoundary) {
                 isTopLeft = x === centerX - 1 && y === centerY - 1;
-            if (centerIsNotAtTopBoundary)
+            }
+            if (centerIsNotAtTopBoundary) {
                 isTop = x === centerX && y === centerY - 1;
-            if (centerIsNotAtTopBoundary && centerIsNotAtRightBoundary)
+            }
+            if (centerIsNotAtTopBoundary && centerIsNotAtRightBoundary) {
                 isTopRight = x === centerX + 1 && y === centerY - 1;
-            if (centerIsNotAtLeftBoundary)
+            }
+            if (centerIsNotAtLeftBoundary) {
                 isLeft = x === centerX - 1 && y === centerY;
-            if (centerIsNotAtRightBoundary)
+            }
+            if (centerIsNotAtRightBoundary) {
                 isRight = x === centerX + 1 && y === centerY;
-            if (centerIsNotAtBottomBoundary && centerIsNotAtLeftBoundary)
+            }
+            if (centerIsNotAtBottomBoundary && centerIsNotAtLeftBoundary) {
                 isBottomLeft = x === centerX - 1 && y === centerY + 1;
-            if (centerIsNotAtBottomBoundary)
+            }
+            if (centerIsNotAtBottomBoundary) {
                 isBottom = x === centerX && y === centerY + 1;
-            if (centerIsNotAtBottomBoundary && centerIsNotAtRightBoundary)
+            }
+            if (centerIsNotAtBottomBoundary && centerIsNotAtRightBoundary) {
                 isBottomRight = x === centerX + 1 && y === centerY + 1;
+            }
 
-            const isNeighbor =
+            return (
                 isTopLeft ||
                 isTop ||
                 isTopRight ||
@@ -153,8 +155,8 @@ export class Board {
                 isRight ||
                 isBottomLeft ||
                 isBottom ||
-                isBottomRight;
-            return isNeighbor;
+                isBottomRight
+            );
         });
     }
 }
