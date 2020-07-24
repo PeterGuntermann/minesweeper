@@ -1,16 +1,15 @@
 import * as React from 'react';
-import { Button, ButtonGroup, ToggleButton } from 'react-bootstrap';
 import '../styles/minesweeper.scss';
 import { FieldModel } from '../types/field.interface';
 import { Level } from '../types/level.enum';
 import { Board } from './board.class';
 import { Field } from './Field';
+import { LevelChooser } from './LevelChooser';
 
 interface MinesweeperProps {}
 
 interface MinesweeperState {
-    currentGameLevel: Level;
-    nextGameLevel: Level;
+    level: Level;
     board: Board;
 }
 
@@ -18,14 +17,12 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     constructor(props: any) {
         super(props);
         this.state = {
-            currentGameLevel: Level.Easy,
-            nextGameLevel: Level.Easy,
+            level: Level.Easy,
             board: new Board(9, 9, 10),
         };
     }
 
-    startNewGame = () => {
-        const level = this.state.nextGameLevel;
+    startNewGame = (level: Level) => {
         switch (level) {
             case Level.Easy:
                 this.setState({ board: new Board(9, 9, 10) });
@@ -39,12 +36,12 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
             default:
                 break;
         }
-        this.setState({ currentGameLevel: level });
+        this.setState({ level: level });
     };
 
     // TODO: Implement reveal mechanics (win/lose)
     board = () => {
-        const boardCssClasses = `board level-${this.state.currentGameLevel}`;
+        const boardCssClasses = `board level-${this.state.level}`;
         return (
             <div className={boardCssClasses}>
                 {this.state.board.allFields.map((field: FieldModel, index: number) => (
@@ -54,46 +51,11 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         );
     };
 
-    handleChangeLevel = (event: any) => {
-        console.log(event.target.value);
-        this.setState({ nextGameLevel: event.target.value });
-    };
-
-    levelChooser = () => {
-        const radioOptions = [
-            { name: 'Easy', value: Level.Easy },
-            { name: 'Medium', value: Level.Medium },
-            { name: 'Hard', value: Level.Hard },
-        ];
-        return (
-            <div className="choose-level">
-                <ButtonGroup toggle>
-                    {radioOptions.map((radio, idx) => (
-                        <ToggleButton
-                            key={idx}
-                            type="radio"
-                            variant="secondary"
-                            name="radio"
-                            value={radio.value}
-                            checked={radio.value === this.state.currentGameLevel}
-                            onFocus={this.handleChangeLevel}
-                        >
-                            {radio.name}
-                        </ToggleButton>
-                    ))}
-                </ButtonGroup>
-
-                <Button variant="primary" onClick={this.startNewGame}>
-                    Start new game!
-                </Button>
-            </div>
-        );
-    };
-
     render() {
         return (
             <section className="minesweeper">
-                {this.levelChooser()}
+                <LevelChooser onStartNewGameClick={this.startNewGame} />
+
                 {this.board()}
             </section>
         );
