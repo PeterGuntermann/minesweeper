@@ -1,9 +1,9 @@
 import * as React from 'react';
 import '../styles/minesweeper.scss';
+import { FieldModel } from '../types/field.interface';
 import { MineField } from './MineField';
 import { RevealedField } from './RevealedField';
 import { UntouchedField } from './UntouchedField';
-import { FieldModel } from '../types/field.interface';
 
 interface FieldProps {
     fieldModel: FieldModel;
@@ -15,7 +15,7 @@ interface FieldState {
 
 export class Field extends React.Component<FieldProps, FieldState> {
     state = {
-        isRevealed: true, // set this to false for production
+        isRevealed: false,
     };
 
     handleReveal = () => {
@@ -30,9 +30,7 @@ export class Field extends React.Component<FieldProps, FieldState> {
             return fieldModel.hasMine ? (
                 <MineField />
             ) : (
-                <RevealedField
-                    neighborCount={fieldModel.numberOfMineNeighbors}
-                />
+                <RevealedField neighborCount={fieldModel.numberOfMineNeighbors} />
             );
         }
 
