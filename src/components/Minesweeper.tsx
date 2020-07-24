@@ -76,7 +76,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                             name="radio"
                             value={radio.value}
                             checked={radio.value === this.state.currentGameLevel}
-                            onChange={this.handleChangeLevel}
+                            onFocus={this.handleChangeLevel}
                         >
                             {radio.name}
                         </ToggleButton>
