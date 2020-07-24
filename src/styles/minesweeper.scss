@@ -40,7 +40,8 @@ section.minesweeper {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    border: 1px solid #333;
+    border: 1px solid #888888;
+    user-select: none;
 
     &.untouched {
         background: rgb(68, 68, 255);
@@ -53,6 +54,11 @@ section.minesweeper {
 
     &.revealed {
         background: #ccc;
+        background: linear-gradient(
+            135deg,
+            rgba(170, 170, 170, 1) 0%,
+            rgba(221, 221, 221, 1) 100%
+        );
         font-weight: bold;
     }
 
