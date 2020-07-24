@@ -1,15 +1,16 @@
 import * as React from 'react';
-import '../styles/minesweeper.scss';
-import { Level } from '../types/level.enum';
-import { Field } from './Field';
-import { FieldModel } from '../types/field.interface';
-import { Board } from './board.class';
 import { Button, ButtonGroup, ToggleButton } from 'react-bootstrap';
+import '../styles/minesweeper.scss';
+import { FieldModel } from '../types/field.interface';
+import { Level } from '../types/level.enum';
+import { Board } from './board.class';
+import { Field } from './Field';
 
 interface MinesweeperProps {}
 
 interface MinesweeperState {
-    level: Level;
+    currentGameLevel: Level;
+    nextGameLevel: Level;
     board: Board;
 }
 
@@ -17,12 +18,14 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     constructor(props: any) {
         super(props);
         this.state = {
-            level: Level.Easy,
+            currentGameLevel: Level.Easy,
+            nextGameLevel: Level.Easy,
             board: new Board(9, 9, 10),
         };
     }
 
-    startNewGame = (level: Level) => {
+    startNewGame = () => {
+        const level = this.state.nextGameLevel;
         switch (level) {
             case Level.Easy:
                 this.setState({ board: new Board(9, 9, 10) });
@@ -36,11 +39,12 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
             default:
                 break;
         }
+        this.setState({ currentGameLevel: level });
     };
 
     // TODO: Implement reveal mechanics (win/lose)
     board = () => {
-        const boardCssClasses = `board level-${this.state.level}`;
+        const boardCssClasses = `board level-${this.state.currentGameLevel}`;
         return (
             <div className={boardCssClasses}>
                 {this.state.board.allFields.map((field: FieldModel, index: number) => (
@@ -51,20 +55,18 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     };
 
     handleChangeLevel = (event: any) => {
-        this.setState({ level: event.target.value });
-        this.startNewGame(event.target.value);
+        console.log(event.target.value);
+        this.setState({ nextGameLevel: event.target.value });
     };
 
-    // TODO: Invoke action via button instead of selection change
     levelChooser = () => {
         const radioOptions = [
-            { name: 'Easy', value: '1' },
-            { name: 'Normal', value: '2' },
-            { name: 'Hard', value: '3' },
+            { name: 'Easy', value: Level.Easy },
+            { name: 'Medium', value: Level.Medium },
+            { name: 'Hard', value: Level.Hard },
         ];
         return (
             <div className="choose-level">
-                <Button variant="primary">Primary</Button> <label>Level: </label>
                 <ButtonGroup toggle>
                     {radioOptions.map((radio, idx) => (
                         <ToggleButton
@@ -73,28 +75,27 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                             variant="secondary"
                             name="radio"
                             value={radio.value}
-                            checked={idx === 1}
+                            checked={radio.value === this.state.currentGameLevel}
+                            onChange={this.handleChangeLevel}
                         >
                             {radio.name}
                         </ToggleButton>
                     ))}
                 </ButtonGroup>
-                <select value={this.state.level} onChange={this.handleChangeLevel}>
-                    <option value="">-- Choose difficulty --</option>
-                    <option value="easy">Easy: 9x9 board, 10 mines (12%)</option>
-                    <option value="medium">Medium: 16x16 board, 40 mines (16%)</option>
-                    <option value="hard">Hard: 30x16 board, 100 mines (21%)</option>
-                </select>
+
+                <Button variant="primary" onClick={this.startNewGame}>
+                    Start new game!
+                </Button>
             </div>
         );
     };
 
     render() {
         return (
-            <div className="minesweeper">
+            <section className="minesweeper">
                 {this.levelChooser()}
                 {this.board()}
-            </div>
+            </section>
         );
     }
 }
