@@ -45,7 +45,6 @@ section.minesweeper {
 
 .field {
     & > div {
-        cursor: pointer;
         width: 30px;
         height: 30px;
         display: flex;
@@ -57,12 +56,21 @@ section.minesweeper {
     }
 
     .untouched {
+        cursor: pointer;
         background: rgb(68, 68, 255);
         background: linear-gradient(
             135deg,
             rgba(68, 68, 255, 1) 0%,
             rgba(0, 221, 255, 1) 100%
         );
+
+        &:hover {
+            background: linear-gradient(
+                135deg,
+                rgba(0, 221, 255, 1) 100%,
+                rgba(68, 68, 255, 1) 0%
+            );
+        }
     }
 
     .flagged {
