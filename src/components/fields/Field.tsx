@@ -10,12 +10,18 @@ interface FieldProps {
     field: FieldModel;
     onReveal: any;
     onFlag: any;
+    onMultiReveal: any;
 }
 
 export class Field extends React.Component<FieldProps, any> {
     handleReveal = () => {
         const { field, onReveal } = this.props;
         if (!field.isRevealed && !field.isFlagged) onReveal(field);
+    };
+
+    handleMultiReveal = () => {
+        const { field, onMultiReveal } = this.props;
+        if (field.isRevealed) onMultiReveal(field);
     };
 
     handleFlag = (event: React.MouseEvent<HTMLDivElement>): void => {
@@ -42,6 +48,7 @@ export class Field extends React.Component<FieldProps, any> {
             className="field"
             onClick={this.handleReveal}
             onContextMenu={this.handleFlag}
+            onDoubleClick={this.handleMultiReveal}
         >
             {this.field()}
         </div>

@@ -69,6 +69,10 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         this.rerenderBoard();
     };
 
+    handleMultiReveal = (field: FieldModel) => {
+        console.log('Multi-Reveal!');
+    };
+
     revealFieldsRecursively(field: FieldModel): void {
         if (field.isRevealed) return;
 
@@ -97,6 +101,9 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                         key={index}
                         field={field}
                         onReveal={(field: FieldModel) => this.handleReveal(field)}
+                        onMultiReveal={(field: FieldModel) =>
+                            this.handleMultiReveal(field)
+                        }
                         onFlag={(field: FieldModel) => this.handleFlag(field)}
                     />
                 ))}
