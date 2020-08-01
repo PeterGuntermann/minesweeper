@@ -2,8 +2,8 @@ import { FieldModel } from '../types/field.interface';
 import { Position } from '../types/position.interface';
 
 export class Board {
-    private readonly fields: FieldModel[];
-    private readonly minePositions: Position[];
+    private readonly _fields: FieldModel[];
+    private readonly _minePositions: Position[];
 
     private _numberOfFlags = 0;
     private _numberOfRevealedFields = 0;
@@ -13,8 +13,8 @@ export class Board {
         public readonly numberOfRows: number,
         public readonly numberOfMines: number = 0
     ) {
-        this.fields = [];
-        this.minePositions = [];
+        this._fields = [];
+        this._minePositions = [];
         this.initializeBlankFields();
         this.rollMinePositions();
         this.distributeMines();
@@ -38,11 +38,11 @@ export class Board {
     }
 
     get allFields(): FieldModel[] {
-        return this.fields;
+        return this._fields;
     }
 
     get allMinePositions(): Position[] {
-        return this.minePositions;
+        return this._minePositions;
     }
 
     toggleFlagForField(field: FieldModel): void {
@@ -62,7 +62,7 @@ export class Board {
     }
 
     revealAllFields(): void {
-        this.fields.forEach((field) => {
+        this._fields.forEach((field) => {
             this.revealField(field);
         });
     }
@@ -79,7 +79,7 @@ export class Board {
             return undefined;
         }
 
-        return this.fields.find(
+        return this._fields.find(
             (field) => field.position.x === position.x && field.position.y === position.y
         );
     }
@@ -92,7 +92,7 @@ export class Board {
         const centerIsNotAtRightBoundary = centerX + 1 < this.numberOfColumns;
         const centerIsNotAtBottomBoundary = centerY - 1 < this.numberOfRows;
 
-        return this.fields.filter((potentialNeighborField) => {
+        return this._fields.filter((potentialNeighborField) => {
             const x = potentialNeighborField.position.x;
             const y = potentialNeighborField.position.y;
             let isTopLeft = false;
@@ -144,7 +144,7 @@ export class Board {
 
     private initializeBlankFields() {
         for (let i = 0; i < this.numberOfFields; i++) {
-            this.fields.push({
+            this._fields.push({
                 hasMine: false,
                 isRevealed: false,
                 isFlagged: false,
@@ -158,25 +158,25 @@ export class Board {
     }
 
     private rollMinePositions() {
-        while (this.minePositions.length < this.numberOfMines) {
+        while (this._minePositions.length < this.numberOfMines) {
             const randomColumn = Math.floor(Math.random() * this.numberOfColumns);
             const randomRow = Math.floor(Math.random() * this.numberOfRows);
             const position: Position = {
                 x: randomColumn,
                 y: randomRow,
             };
-            const positionAlreadyExists = this.minePositions.some(
+            const positionAlreadyExists = this._minePositions.some(
                 (pos) => pos.x === randomColumn && pos.y === randomRow
             );
 
             if (!positionAlreadyExists) {
-                this.minePositions.push(position);
+                this._minePositions.push(position);
             }
         }
     }
 
     private distributeMines() {
-        this.minePositions.forEach((minePosition) => {
+        this._minePositions.forEach((minePosition) => {
             const field = this.getFieldByPosition(minePosition);
 
             if (field !== undefined) {
@@ -188,7 +188,7 @@ export class Board {
     }
 
     private calculateNumberOfMineNeighbors() {
-        this.fields.forEach((field) => {
+        this._fields.forEach((field) => {
             field.numberOfMineNeighbors = this.getNumberOfMineNeighborsForField(field);
         });
     }

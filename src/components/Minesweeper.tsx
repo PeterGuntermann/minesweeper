@@ -6,12 +6,14 @@ import { Board } from './board.class';
 import { LevelChooser } from './LevelChooser';
 import { Field } from './fields/Field';
 import { StatsDisplay } from './StatsDisplay';
+import { GameStatus } from '../types/game-status.enum';
 
 interface MinesweeperProps {}
 
 interface MinesweeperState {
     level: Level;
     board: Board;
+    gameStatus: GameStatus;
 }
 
 export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperState> {
@@ -20,24 +22,34 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         this.state = {
             level: Level.Easy,
             board: new Board(9, 9, 10),
+            gameStatus: GameStatus.Playing,
         };
     }
 
     startNewGame = (level: Level) => {
         switch (level) {
             case Level.Easy:
-                this.setState({ board: new Board(9, 9, 10) });
+                this.setState({
+                    board: new Board(9, 9, 10),
+                });
                 break;
             case Level.Medium:
-                this.setState({ board: new Board(16, 16, 40) });
+                this.setState({
+                    board: new Board(16, 16, 40),
+                });
                 break;
             case Level.Hard:
-                this.setState({ board: new Board(30, 16, 100) });
+                this.setState({
+                    board: new Board(30, 16, 100),
+                });
                 break;
             default:
                 break;
         }
-        this.setState({ level: level });
+        this.setState({
+            level: level,
+            gameStatus: GameStatus.Playing,
+        });
     };
 
     handleReveal = (field: FieldModel) => {
@@ -45,14 +57,14 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
 
         if (field.hasMine) {
             board.revealAllFields();
-            console.log('You lose!');
+            this.setState({ gameStatus: GameStatus.Lost });
         } else {
             this.revealFieldsRecursively(field);
         }
 
         if (board.numberOfFieldsToReveal === 0) {
             board.revealAllFields();
-            console.log('You win!');
+            this.setState({ gameStatus: GameStatus.Won });
         }
         this.rerenderBoard();
     };
@@ -101,7 +113,10 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                 key={randomlyCreatedKeyToResetTheStatesOfAllFields}
             >
                 <LevelChooser onStartNewGameClick={this.startNewGame} />
-                <StatsDisplay board={this.state.board} />
+                <StatsDisplay
+                    board={this.state.board}
+                    gameStatus={this.state.gameStatus}
+                />
                 {this.board()}
             </section>
         );
