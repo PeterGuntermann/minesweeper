@@ -7,6 +7,7 @@ import { LevelChooser } from './LevelChooser';
 import { Field } from './fields/Field';
 import { StatsDisplay } from './StatsDisplay';
 import { GameStatus } from '../types/game-status.enum';
+import { Alert } from 'react-bootstrap';
 
 interface MinesweeperProps {}
 
@@ -104,8 +105,37 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         );
     };
 
+    winMessage = () => (
+        <div className="win-message">
+            <span role="img" aria-label="party">
+                🎊🎉
+            </span>
+            &nbsp;
+            <span>Congratulations, you made it!</span>
+            &nbsp;
+            <span role="img" aria-label="party">
+                🎉🎊
+            </span>
+        </div>
+    );
+
+    loseMessage = () => (
+        <div className="lose-message">
+            <span role="img" aria-label="party">
+                🔥💥
+            </span>
+            &nbsp;
+            <span>Whoops - try again!</span>
+            &nbsp;
+            <span role="img" aria-label="party">
+                💥🔥
+            </span>
+        </div>
+    );
+
     render() {
         const randomlyCreatedKeyToResetTheStatesOfAllFields = Math.random();
+        const { gameStatus, board } = this.state;
 
         return (
             <section
@@ -113,11 +143,10 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                 key={randomlyCreatedKeyToResetTheStatesOfAllFields}
             >
                 <LevelChooser onStartNewGameClick={this.startNewGame} />
-                <StatsDisplay
-                    board={this.state.board}
-                    gameStatus={this.state.gameStatus}
-                />
+                <StatsDisplay board={board} gameStatus={gameStatus} />
                 {this.board()}
+                {gameStatus === GameStatus.Won && this.winMessage()}
+                {gameStatus === GameStatus.Lost && this.loseMessage()}
             </section>
         );
     }
