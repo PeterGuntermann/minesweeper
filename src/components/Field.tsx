@@ -19,7 +19,12 @@ export class Field extends React.Component<FieldProps, FieldState> {
         this.props.onReveal(this.props.fieldModel);
     };
 
-    render() {
+    handleFlag = (event: React.MouseEvent<HTMLDivElement>): void => {
+        event.preventDefault();
+        console.log('Right clicked!');
+    };
+
+    field = () => {
         const { fieldModel } = this.props;
 
         if (fieldModel.isRevealed) {
@@ -30,6 +35,16 @@ export class Field extends React.Component<FieldProps, FieldState> {
             );
         }
 
-        return <UntouchedField onReveal={this.handleReveal} />;
-    }
+        return <UntouchedField />;
+    };
+
+    render = () => (
+        <div
+            className="field"
+            onClick={this.handleReveal}
+            onContextMenu={this.handleFlag}
+        >
+            {this.field()}
+        </div>
+    );
 }

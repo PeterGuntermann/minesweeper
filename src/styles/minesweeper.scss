@@ -33,17 +33,19 @@ section.minesweeper {
 }
 
 .field {
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    border: 1px solid #888888;
-    user-select: none;
+    & > div {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        border: 1px solid #888888;
+        user-select: none;
+    }
 
-    &.untouched {
+    .untouched {
         background: rgb(68, 68, 255);
         background: linear-gradient(
             135deg,
@@ -52,7 +54,7 @@ section.minesweeper {
         );
     }
 
-    &.revealed {
+    .revealed {
         background: rgba(221, 221, 221, 1);
         background: linear-gradient(
             135deg,
@@ -60,50 +62,50 @@ section.minesweeper {
             rgba(221, 221, 221, 1) 100%
         );
         font-weight: bold;
-    }
 
-    &.has-mine {
-        background: rgb(255, 0, 0);
-        background: linear-gradient(
-            135deg,
-            rgba(204, 0, 0, 1) 0%,
-            rgba(255, 0, 0, 1) 100%
-        );
-    }
+        &.has-mine {
+            background: rgb(255, 0, 0);
+            background: linear-gradient(
+                135deg,
+                rgba(204, 0, 0, 1) 0%,
+                rgba(255, 0, 0, 1) 100%
+            );
+        }
 
-    &.neighbor-count-0 {
-        color: transparent;
-    }
+        &.neighbor-count-0 {
+            color: transparent;
+        }
 
-    &.neighbor-count-1 {
-        color: blue;
-    }
+        &.neighbor-count-1 {
+            color: blue;
+        }
 
-    &.neighbor-count-2 {
-        color: green;
-    }
+        &.neighbor-count-2 {
+            color: green;
+        }
 
-    &.neighbor-count-3 {
-        color: red;
-    }
+        &.neighbor-count-3 {
+            color: red;
+        }
 
-    &.neighbor-count-4 {
-        color: blueviolet;
-    }
+        &.neighbor-count-4 {
+            color: blueviolet;
+        }
 
-    &.neighbor-count-5 {
-        color: brown;
-    }
+        &.neighbor-count-5 {
+            color: brown;
+        }
 
-    &.neighbor-count-6 {
-        color: teal;
-    }
+        &.neighbor-count-6 {
+            color: teal;
+        }
 
-    &.neighbor-count-7 {
-        color: darkblue;
-    }
+        &.neighbor-count-7 {
+            color: darkblue;
+        }
 
-    &.neighbor-count-8 {
-        color: grey;
+        &.neighbor-count-8 {
+            color: grey;
+        }
     }
 }
