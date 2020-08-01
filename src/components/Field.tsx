@@ -7,7 +7,7 @@ import { UntouchedField } from './UntouchedField';
 
 interface FieldProps {
     fieldModel: FieldModel;
-    onMineReveal: any;
+    onReveal: any;
 }
 
 interface FieldState {
@@ -15,20 +15,14 @@ interface FieldState {
 }
 
 export class Field extends React.Component<FieldProps, FieldState> {
-    state = {
-        isRevealed: false,
-    };
-
     handleReveal = () => {
-        this.setState({ isRevealed: true });
-        if (this.props.fieldModel.hasMine) this.props.onMineReveal();
+        this.props.onReveal(this.props.fieldModel);
     };
 
     render() {
-        const { isRevealed } = this.state;
         const { fieldModel } = this.props;
 
-        if (isRevealed) {
+        if (fieldModel.isRevealed) {
             return fieldModel.hasMine ? (
                 <MineField />
             ) : (

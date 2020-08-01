@@ -30,6 +30,17 @@ export class Board {
         return this.minePositions;
     }
 
+    revealField(field: FieldModel): void {
+        const boardField = this.getFieldByPosition(field.position);
+        if (boardField) boardField.isRevealed = true;
+    }
+
+    revealAllFields(): void {
+        this.fields.forEach((field) => {
+            this.revealField(field);
+        });
+    }
+
     getFieldByPosition(position: Position): FieldModel | undefined {
         const positionIsInvalid =
             position.x >= this.numberOfColumns ||
@@ -51,6 +62,7 @@ export class Board {
         for (let i = 0; i < this.numberOfFields; i++) {
             this.fields.push({
                 hasMine: false,
+                isRevealed: false,
                 position: {
                     x: i % this.numberOfColumns,
                     y: Math.floor(i / this.numberOfColumns),
