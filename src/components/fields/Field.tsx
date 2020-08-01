@@ -14,13 +14,12 @@ interface FieldProps {
 
 export class Field extends React.Component<FieldProps, any> {
     handleReveal = () => {
-        this.props.onReveal(this.props.field);
+        if (!this.props.field.isRevealed) this.props.onReveal(this.props.field);
     };
 
     handleFlag = (event: React.MouseEvent<HTMLDivElement>): void => {
         event.preventDefault();
-        this.props.onFlag(this.props.field);
-        console.log('Right clicked!');
+        if (!this.props.field.isRevealed) this.props.onFlag(this.props.field);
     };
 
     revealedField = () =>

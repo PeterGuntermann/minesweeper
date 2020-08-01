@@ -71,8 +71,8 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     }
 
     handleFlag = (field: FieldModel) => {
-        // TODO: 01.08.2020
-        console.log('Flagged field ', field.position);
+        this.state.board.toggleFlagForField(field);
+        this.rerenderBoard();
     };
 
     board = () => {

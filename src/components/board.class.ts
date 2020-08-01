@@ -36,6 +36,11 @@ export class Board {
         return this.minePositions;
     }
 
+    toggleFlagForField(field: FieldModel): void {
+        const boardField = this.getFieldByPosition(field.position);
+        if (boardField) boardField.isFlagged = !boardField.isFlagged;
+    }
+
     revealField(field: FieldModel): void {
         const boardField = this.getFieldByPosition(field.position);
         if (boardField) boardField.isRevealed = true;
