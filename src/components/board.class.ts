@@ -5,7 +5,8 @@ export class Board {
     private readonly fields: FieldModel[];
     private readonly minePositions: Position[];
 
-    private numberOfRevealedFields = 0;
+    private _numberOfFlags = 0;
+    private _numberOfRevealedFields = 0;
 
     constructor(
         public readonly numberOfColumns: number,
@@ -25,7 +26,15 @@ export class Board {
     }
 
     get numberOfFieldsToReveal(): number {
-        return this.numberOfFields - this.numberOfMines - this.numberOfRevealedFields;
+        return this.numberOfFields - this.numberOfMines - this._numberOfRevealedFields;
+    }
+
+    get numberOfFlags(): number {
+        return this._numberOfFlags;
+    }
+
+    get numberOfMinesLeft(): number {
+        return this.numberOfMines - this._numberOfFlags;
     }
 
     get allFields(): FieldModel[] {
@@ -38,13 +47,18 @@ export class Board {
 
     toggleFlagForField(field: FieldModel): void {
         const boardField = this.getFieldByPosition(field.position);
-        if (boardField) boardField.isFlagged = !boardField.isFlagged;
+        if (!boardField) return;
+
+        boardField.isFlagged = !boardField.isFlagged;
+        this._numberOfFlags = boardField.isFlagged
+            ? this.numberOfFlags + 1
+            : this.numberOfFlags - 1;
     }
 
     revealField(field: FieldModel): void {
         const boardField = this.getFieldByPosition(field.position);
         if (boardField) boardField.isRevealed = true;
-        this.numberOfRevealedFields++;
+        this._numberOfRevealedFields++;
     }
 
     revealAllFields(): void {
