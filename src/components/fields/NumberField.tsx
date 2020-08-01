@@ -4,7 +4,7 @@ interface RevealedFieldProps {
     neighborCount: number;
 }
 
-export const RevealedField = (props: RevealedFieldProps) => (
+export const NumberField = (props: RevealedFieldProps) => (
     <div className={`revealed neighbor-count-${props.neighborCount}`}>
         <span>{props.neighborCount}</span>
     </div>

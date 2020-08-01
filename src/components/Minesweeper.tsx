@@ -3,8 +3,8 @@ import '../styles/minesweeper.scss';
 import { FieldModel } from '../types/field.interface';
 import { Level } from '../types/level.enum';
 import { Board } from './board.class';
-import { Field } from './fields/Field';
 import { LevelChooser } from './LevelChooser';
+import { Field } from './fields/Field';
 
 interface MinesweeperProps {}
 
@@ -70,6 +70,11 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         }
     }
 
+    handleFlag = (field: FieldModel) => {
+        // TODO: 01.08.2020
+        console.log('Flagged field ', field.position);
+    };
+
     board = () => {
         const boardCssClasses = `board level-${this.state.level}`;
         return (
@@ -79,6 +84,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                         key={index}
                         fieldModel={field}
                         onReveal={(field: FieldModel) => this.handleReveal(field)}
+                        onFlag={(field: FieldModel) => this.handleFlag(field)}
                     />
                 ))}
             </div>

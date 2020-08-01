@@ -128,6 +128,7 @@ export class Board {
             this.fields.push({
                 hasMine: false,
                 isRevealed: false,
+                isFlagged: false,
                 position: {
                     x: i % this.numberOfColumns,
                     y: Math.floor(i / this.numberOfColumns),
