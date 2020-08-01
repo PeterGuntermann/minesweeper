@@ -7,10 +7,6 @@ interface StatsDisplayProps {
 }
 
 export class StatsDisplay extends React.Component<StatsDisplayProps, any> {
-    constructor(props: any) {
-        super(props);
-    }
-
     render() {
         const { board } = this.props;
         return (
