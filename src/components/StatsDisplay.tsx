@@ -33,7 +33,10 @@ export class StatsDisplay extends React.Component<StatsDisplayProps, any> {
                         <span role="img" aria-label="mine">
                             💣
                         </span>
-                        &nbsp;<span>{board.numberOfMinesLeft}</span>
+                        &nbsp;
+                        <span>
+                            {gameStatus === GameStatus.Won ? 0 : board.numberOfMinesLeft}
+                        </span>
                     </Badge>
                     <Badge className="stat mr-3" variant="secondary">
                         <span role="img" aria-label="finger">

@@ -89,7 +89,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     };
 
     board = () => {
-        const boardCssClasses = `board level-${this.state.level}`;
+        const boardCssClasses = `board level-${this.state.level} game-status-${this.state.gameStatus}`;
         return (
             <div className={boardCssClasses}>
                 {this.state.board.allFields.map((field: FieldModel, index: number) => (
