@@ -82,7 +82,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                 {this.state.board.allFields.map((field: FieldModel, index: number) => (
                     <Field
                         key={index}
-                        fieldModel={field}
+                        field={field}
                         onReveal={(field: FieldModel) => this.handleReveal(field)}
                         onFlag={(field: FieldModel) => this.handleFlag(field)}
                     />
