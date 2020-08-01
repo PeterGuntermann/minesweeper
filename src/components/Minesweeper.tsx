@@ -104,6 +104,13 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         );
     };
 
+    howToUse = () => (
+        <div className="how-to-use">
+            Left-click on a field to reveal it. <br />
+            Right-click to set a flag.
+        </div>
+    );
+
     render() {
         const randomlyCreatedKeyToResetTheStatesOfAllFields = Math.random();
         const { gameStatus, board } = this.state;
@@ -116,6 +123,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                 <LevelChooser onStartNewGameClick={this.startNewGame} />
                 <StatsDisplay board={board} gameStatus={gameStatus} />
                 {this.board()}
+                {this.howToUse()}
             </section>
         );
     }

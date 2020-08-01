@@ -1,5 +1,4 @@
 section.minesweeper {
-    height: 38rem;
     padding: 0 2rem;
 }
 
@@ -148,4 +147,11 @@ section.minesweeper {
             rgba(0, 255, 0, 1) 100%
         );
     }
+}
+
+.how-to-use {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #ccc;
+    font-style: italic;
 }
