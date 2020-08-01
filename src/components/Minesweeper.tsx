@@ -70,7 +70,18 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     };
 
     handleMultiReveal = (field: FieldModel) => {
-        console.log('Multi-Reveal!');
+        const neighbors = this.state.board.getNeighborsOfField(field);
+        const numberOfFlaggedNeighbors = neighbors.filter(
+            (neighbor) => neighbor.isFlagged
+        ).length;
+
+        if (field.numberOfMineNeighbors === numberOfFlaggedNeighbors) {
+            console.log('Multi-Reveal!', numberOfFlaggedNeighbors);
+            neighbors
+                .filter((neighbor) => !neighbor.isFlagged && !neighbor.isRevealed)
+                .forEach((neighbor) => this.revealFieldsRecursively(neighbor));
+            this.rerenderBoard();
+        }
     };
 
     revealFieldsRecursively(field: FieldModel): void {
