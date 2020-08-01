@@ -39,13 +39,22 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         this.setState({ level: level });
     };
 
+    handleMineReveal = () => {
+        console.log('You hit a mine!');
+        // TODO: 01.08.2020 Reveal all fields then.
+    };
+
     // TODO: Implement reveal mechanics (win/lose)
     board = () => {
         const boardCssClasses = `board level-${this.state.level}`;
         return (
             <div className={boardCssClasses}>
                 {this.state.board.allFields.map((field: FieldModel, index: number) => (
-                    <Field key={index} fieldModel={field} />
+                    <Field
+                        key={index}
+                        fieldModel={field}
+                        onMineReveal={() => this.handleMineReveal()}
+                    />
                 ))}
             </div>
         );
