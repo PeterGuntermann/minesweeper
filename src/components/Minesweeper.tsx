@@ -40,10 +40,27 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     };
 
     handleReveal = (field: FieldModel) => {
-        this.state.board.revealField(field);
-        field.hasMine && this.state.board.revealAllFields();
-        this.setState({}); // re-render board
+        if (field.hasMine) {
+            this.state.board.revealAllFields();
+        } else {
+            this.revealFieldsRecursively(field);
+        }
+        this.rerenderBoard();
     };
+
+    revealFieldsRecursively(field: FieldModel): void {
+        if (field.isRevealed) return;
+
+        const { board } = this.state;
+        board.revealField(field);
+
+        if (field.numberOfMineNeighbors === 0) {
+            const neighbors = board.getNeighborsOfField(field);
+            neighbors.forEach((neighbor) => {
+                this.revealFieldsRecursively(neighbor);
+            });
+        }
+    }
 
     board = () => {
         const boardCssClasses = `board level-${this.state.level}`;
@@ -73,5 +90,9 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                 {this.board()}
             </section>
         );
+    }
+
+    private rerenderBoard() {
+        this.setState({});
     }
 }

@@ -58,63 +58,7 @@ export class Board {
         );
     }
 
-    private initializeBlankFields() {
-        for (let i = 0; i < this.numberOfFields; i++) {
-            this.fields.push({
-                hasMine: false,
-                isRevealed: false,
-                position: {
-                    x: i % this.numberOfColumns,
-                    y: Math.floor(i / this.numberOfColumns),
-                },
-                numberOfMineNeighbors: 0,
-            } as FieldModel);
-        }
-    }
-
-    private rollMinePositions() {
-        while (this.minePositions.length < this.numberOfMines) {
-            const randomColumn = Math.floor(Math.random() * this.numberOfColumns);
-            const randomRow = Math.floor(Math.random() * this.numberOfRows);
-            const position: Position = {
-                x: randomColumn,
-                y: randomRow,
-            };
-            const positionAlreadyExists = this.minePositions.some(
-                (pos) => pos.x === randomColumn && pos.y === randomRow
-            );
-
-            if (!positionAlreadyExists) {
-                this.minePositions.push(position);
-            }
-        }
-    }
-
-    private distributeMines() {
-        this.minePositions.forEach((minePosition) => {
-            const field = this.getFieldByPosition(minePosition);
-
-            if (field !== undefined) {
-                field.hasMine = true;
-            } else {
-                console.warn('Tried to set a mine on a undefined field!');
-            }
-        });
-    }
-
-    private calculateNumberOfMineNeighbors() {
-        this.fields.forEach((field) => {
-            field.numberOfMineNeighbors = this.getNumberOfMineNeighborsForField(field);
-        });
-    }
-
-    private getNumberOfMineNeighborsForField(field: FieldModel) {
-        const neighbors = this.getNeighborsOfField(field);
-        const neighborsWithMine = neighbors.filter((neighbor) => neighbor.hasMine);
-        return neighborsWithMine.length;
-    }
-
-    private getNeighborsOfField(field: FieldModel): FieldModel[] {
+    getNeighborsOfField(field: FieldModel): FieldModel[] {
         const centerX = field.position.x;
         const centerY = field.position.y;
         const centerIsNotAtTopBoundary = centerY - 1 >= 0;
@@ -170,5 +114,61 @@ export class Board {
                 isBottomRight
             );
         });
+    }
+
+    private initializeBlankFields() {
+        for (let i = 0; i < this.numberOfFields; i++) {
+            this.fields.push({
+                hasMine: false,
+                isRevealed: false,
+                position: {
+                    x: i % this.numberOfColumns,
+                    y: Math.floor(i / this.numberOfColumns),
+                },
+                numberOfMineNeighbors: 0,
+            } as FieldModel);
+        }
+    }
+
+    private rollMinePositions() {
+        while (this.minePositions.length < this.numberOfMines) {
+            const randomColumn = Math.floor(Math.random() * this.numberOfColumns);
+            const randomRow = Math.floor(Math.random() * this.numberOfRows);
+            const position: Position = {
+                x: randomColumn,
+                y: randomRow,
+            };
+            const positionAlreadyExists = this.minePositions.some(
+                (pos) => pos.x === randomColumn && pos.y === randomRow
+            );
+
+            if (!positionAlreadyExists) {
+                this.minePositions.push(position);
+            }
+        }
+    }
+
+    private distributeMines() {
+        this.minePositions.forEach((minePosition) => {
+            const field = this.getFieldByPosition(minePosition);
+
+            if (field !== undefined) {
+                field.hasMine = true;
+            } else {
+                console.warn('Tried to set a mine on a undefined field!');
+            }
+        });
+    }
+
+    private calculateNumberOfMineNeighbors() {
+        this.fields.forEach((field) => {
+            field.numberOfMineNeighbors = this.getNumberOfMineNeighborsForField(field);
+        });
+    }
+
+    private getNumberOfMineNeighborsForField(field: FieldModel) {
+        const neighbors = this.getNeighborsOfField(field);
+        const neighborsWithMine = neighbors.filter((neighbor) => neighbor.hasMine);
+        return neighborsWithMine.length;
     }
 }
