@@ -7,14 +7,25 @@ function App() {
         <>
             <div className="App">
                 <header>
-                    <h1>Minesweeper</h1>
+                    <section className="left">
+                        <a
+                            href="https://github.com/PeterGuntermann/minesweeper"
+                            target="blank"
+                        >
+                            Source code on GitHub
+                        </a>
+                    </section>
+                    <section className="center">
+                        <h1>Minesweeper</h1>
+                    </section>
+                    <section className="right">
+                        <a href="https://reactjs.org/" target="blank">
+                            Made with React.JS
+                        </a>
+                    </section>
                 </header>
 
                 <Minesweeper />
-
-                <footer>
-                    <p>Made with React.JS</p>
-                </footer>
             </div>
         </>
     );
