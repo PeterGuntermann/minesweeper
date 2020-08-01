@@ -119,14 +119,10 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     );
 
     render() {
-        const randomlyCreatedKeyToResetTheStatesOfAllFields = Math.random();
         const { gameStatus, board } = this.state;
 
         return (
-            <section
-                className="minesweeper"
-                key={randomlyCreatedKeyToResetTheStatesOfAllFields}
-            >
+            <section className="minesweeper">
                 <LevelChooser onStartNewGameClick={this.startNewGame} />
                 <StatsDisplay board={board} gameStatus={gameStatus} />
                 {this.board()}
