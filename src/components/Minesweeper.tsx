@@ -3,7 +3,7 @@ import '../styles/minesweeper.scss';
 import { FieldModel } from '../types/field.interface';
 import { Level } from '../types/level.enum';
 import { Board } from './board.class';
-import { Field } from './Field';
+import { Field } from './fields/Field';
 import { LevelChooser } from './LevelChooser';
 
 interface MinesweeperProps {}
