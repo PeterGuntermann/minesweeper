@@ -5,6 +5,8 @@ export class Board {
     private readonly fields: FieldModel[];
     private readonly minePositions: Position[];
 
+    private numberOfRevealedFields = 0;
+
     constructor(
         public readonly numberOfColumns: number,
         public readonly numberOfRows: number,
@@ -22,6 +24,10 @@ export class Board {
         return this.numberOfRows * this.numberOfColumns;
     }
 
+    get numberOfFieldsToReveal(): number {
+        return this.numberOfFields - this.numberOfMines - this.numberOfRevealedFields;
+    }
+
     get allFields(): FieldModel[] {
         return this.fields;
     }
@@ -33,6 +39,7 @@ export class Board {
     revealField(field: FieldModel): void {
         const boardField = this.getFieldByPosition(field.position);
         if (boardField) boardField.isRevealed = true;
+        this.numberOfRevealedFields++;
     }
 
     revealAllFields(): void {

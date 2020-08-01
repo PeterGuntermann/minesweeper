@@ -40,10 +40,18 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
     };
 
     handleReveal = (field: FieldModel) => {
+        const { board } = this.state;
+
         if (field.hasMine) {
-            this.state.board.revealAllFields();
+            board.revealAllFields();
+            console.log('You lose!');
         } else {
             this.revealFieldsRecursively(field);
+        }
+
+        if (board.numberOfFieldsToReveal === 0) {
+            board.revealAllFields();
+            console.log('You win!');
         }
         this.rerenderBoard();
     };
@@ -86,6 +94,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                 key={randomlyCreatedKeyToResetTheStatesOfAllFields}
             >
                 <LevelChooser onStartNewGameClick={this.startNewGame} />
+                <div>Fields to reveal: {this.state.board.numberOfFieldsToReveal}</div>
 
                 {this.board()}
             </section>
