@@ -35,7 +35,7 @@ export class LevelChooser extends React.Component<LevelChooserProps, LevelChoose
 
     render() {
         return (
-            <div className="choose-level">
+            <div className="level-chooser">
                 <ButtonGroup toggle>
                     {this.radioOptions.map((radio: LevelRadioOption, idx) => (
                         <ToggleButton

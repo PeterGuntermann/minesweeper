@@ -5,6 +5,7 @@ import { Level } from '../types/level.enum';
 import { Board } from './board.class';
 import { LevelChooser } from './LevelChooser';
 import { Field } from './fields/Field';
+import { StatsDisplay } from './StatsDisplay';
 
 interface MinesweeperProps {}
 
@@ -100,8 +101,7 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
                 key={randomlyCreatedKeyToResetTheStatesOfAllFields}
             >
                 <LevelChooser onStartNewGameClick={this.startNewGame} />
-                <div>Fields to reveal: {this.state.board.numberOfFieldsToReveal}</div>
-
+                <StatsDisplay board={this.state.board} />
                 {this.board()}
             </section>
         );

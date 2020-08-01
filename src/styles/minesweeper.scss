@@ -1,15 +1,21 @@
 section.minesweeper {
-    height: 40rem;
+    height: 38rem;
 }
 
-.choose-level {
-    margin-bottom: 3rem;
+.level-chooser {
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
 
     div.btn-group {
         margin-right: 1rem;
     }
+}
+
+.stats-display {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
 }
 
 .board {
