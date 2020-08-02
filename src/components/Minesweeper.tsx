@@ -1,12 +1,12 @@
 import * as React from 'react';
 import '../styles/minesweeper.scss';
 import { FieldModel } from '../types/field.interface';
+import { GameStatus } from '../types/game-status.enum';
 import { Level } from '../types/level.enum';
 import { Board } from './board.class';
-import { LevelChooser } from './LevelChooser';
 import { Field } from './fields/Field';
+import { LevelChooser } from './LevelChooser';
 import { StatsDisplay } from './StatsDisplay';
-import { GameStatus } from '../types/game-status.enum';
 
 interface MinesweeperProps {}
 
@@ -126,6 +126,9 @@ export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperSt
         <div className="how-to-use">
             Left-click on a field to reveal it. <br />
             Right-click to set a flag.
+            <br />
+            Double-click on a revealed field to multi-reveal all neighbors (if flags are
+            set).
         </div>
     );
 
