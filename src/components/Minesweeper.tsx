@@ -8,15 +8,13 @@ import { Field } from './fields/Field';
 import { LevelChooser } from './LevelChooser';
 import { StatsDisplay } from './StatsDisplay';
 
-interface MinesweeperProps {}
-
 interface MinesweeperState {
     level: Level;
     board: Board;
     gameStatus: GameStatus;
 }
 
-export class Minesweeper extends React.Component<MinesweeperProps, MinesweeperState> {
+export class Minesweeper extends React.Component<any, MinesweeperState> {
     constructor(props: any) {
         super(props);
         this.state = {

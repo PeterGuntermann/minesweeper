@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Board } from './board.class';
 import { Badge } from 'react-bootstrap';
 import { GameStatus } from '../types/game-status.enum';
+import { Board } from './board.class';
 
 interface StatsDisplayProps {
     board: Board;
@@ -19,6 +19,7 @@ export class StatsDisplay extends React.Component<StatsDisplayProps, any> {
                 return '😵';
         }
     };
+
     render() {
         const { board, gameStatus } = this.props;
         return (
@@ -38,6 +39,7 @@ export class StatsDisplay extends React.Component<StatsDisplayProps, any> {
                             {gameStatus === GameStatus.Won ? 0 : board.numberOfMinesLeft}
                         </span>
                     </Badge>
+
                     <Badge className="stat mr-3" variant="secondary">
                         <span role="img" aria-label="finger">
                             👆
@@ -49,11 +51,19 @@ export class StatsDisplay extends React.Component<StatsDisplayProps, any> {
                                 : 0}
                         </span>
                     </Badge>
-                    <Badge className="stat" variant="secondary">
+
+                    <Badge className="stat mr-3" variant="secondary">
                         <span role="img" aria-label="flag">
                             🚩
                         </span>
                         &nbsp;<span>{board.numberOfFlags}</span>
+                    </Badge>
+
+                    <Badge className="stat" variant="secondary">
+                        <span role="img" aria-label="time">
+                            ⏲
+                        </span>
+                        &nbsp;<span>0:00</span>
                     </Badge>
                 </div>
             </>
