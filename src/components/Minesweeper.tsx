@@ -82,7 +82,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         if (field.numberOfMineNeighbors === numberOfFlaggedNeighbors) {
             neighbors
                 .filter((neighbor) => !neighbor.isFlagged && !neighbor.isRevealed)
-                .forEach((neighbor) => this.revealFieldsRecursively(neighbor));
+                .forEach((neighbor) => this.handleReveal(neighbor));
             this.rerenderBoard();
         }
     };
