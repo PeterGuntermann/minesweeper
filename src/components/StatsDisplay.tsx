@@ -1,27 +1,33 @@
 import * as React from 'react';
 import { Badge } from 'react-bootstrap';
 import { GameStatus } from '../types/game-status.enum';
-import { Board } from './board.class';
+import { MinesweeperState } from './Minesweeper';
 
 interface StatsDisplayProps {
-    board: Board;
-    gameStatus: GameStatus;
+    minesweeperState: MinesweeperState;
 }
 
 export class StatsDisplay extends React.Component<StatsDisplayProps, any> {
     smiley = () => {
-        switch (this.props.gameStatus) {
+        switch (this.props.minesweeperState.gameStatus) {
             case GameStatus.Playing:
                 return '🤔';
             case GameStatus.Won:
                 return '😎';
             case GameStatus.Lost:
                 return '😵';
+            case GameStatus.Idle:
+                return '😴';
         }
     };
 
+    timer = () => {
+        const { startedAtTime } = this.props.minesweeperState;
+        return `${startedAtTime}`;
+    };
+
     render() {
-        const { board, gameStatus } = this.props;
+        const { board, gameStatus } = this.props.minesweeperState;
         return (
             <>
                 <div className="smiley">
@@ -63,7 +69,7 @@ export class StatsDisplay extends React.Component<StatsDisplayProps, any> {
                         <span role="img" aria-label="time">
                             ⏲
                         </span>
-                        &nbsp;<span>0:00</span>
+                        &nbsp;<span>{this.timer()}</span>
                     </Badge>
                 </div>
             </>

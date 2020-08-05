@@ -8,10 +8,12 @@ import { Field } from './fields/Field';
 import { LevelChooser } from './LevelChooser';
 import { StatsDisplay } from './StatsDisplay';
 
-interface MinesweeperState {
+export interface MinesweeperState {
     level: Level;
     board: Board;
     gameStatus: GameStatus;
+    startedAtTime?: number;
+    stoppedAtTime?: number;
 }
 
 export class Minesweeper extends React.Component<any, MinesweeperState> {
@@ -19,8 +21,8 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         super(props);
         this.state = {
             level: Level.Easy,
-            board: new Board(9, 9, 10),
-            gameStatus: GameStatus.Playing,
+            board: new Board(0, 0, 0),
+            gameStatus: GameStatus.Idle,
         };
     }
 
@@ -47,6 +49,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         this.setState({
             level: level,
             gameStatus: GameStatus.Playing,
+            startedAtTime: Date.now(),
         });
     };
 
@@ -74,7 +77,6 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         ).length;
 
         if (field.numberOfMineNeighbors === numberOfFlaggedNeighbors) {
-            console.log('Multi-Reveal!', numberOfFlaggedNeighbors);
             neighbors
                 .filter((neighbor) => !neighbor.isFlagged && !neighbor.isRevealed)
                 .forEach((neighbor) => this.revealFieldsRecursively(neighbor));
@@ -82,7 +84,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         }
     };
 
-    revealFieldsRecursively(field: FieldModel): void {
+    revealFieldsRecursively = (field: FieldModel): void => {
         if (field.isRevealed) return;
 
         const { board } = this.state;
@@ -94,14 +96,14 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
                 this.revealFieldsRecursively(neighbor);
             });
         }
-    }
+    };
 
-    handleFlag = (field: FieldModel) => {
+    handleFlag = (field: FieldModel): void => {
         this.state.board.toggleFlagForField(field);
         this.rerenderBoard();
     };
 
-    board = () => {
+    board = (): JSX.Element => {
         const boardCssClasses = `board level-${this.state.level} game-status-${this.state.gameStatus}`;
         return (
             <div className={boardCssClasses}>
@@ -120,7 +122,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         );
     };
 
-    howToUse = () => (
+    howToUse = (): JSX.Element => (
         <div className="how-to-use">
             Left-click on a field to reveal it. <br />
             Right-click to set a flag.
@@ -130,20 +132,14 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         </div>
     );
 
-    render() {
-        const { gameStatus, board } = this.state;
+    render = (): JSX.Element => (
+        <section className="minesweeper">
+            <LevelChooser onStartNewGameClick={this.startNewGame} />
+            <StatsDisplay minesweeperState={this.state} />
+            {this.board()}
+            {this.howToUse()}
+        </section>
+    );
 
-        return (
-            <section className="minesweeper">
-                <LevelChooser onStartNewGameClick={this.startNewGame} />
-                <StatsDisplay board={board} gameStatus={gameStatus} />
-                {this.board()}
-                {this.howToUse()}
-            </section>
-        );
-    }
-
-    private rerenderBoard() {
-        this.setState({});
-    }
+    private rerenderBoard = () => this.setState({});
 }
