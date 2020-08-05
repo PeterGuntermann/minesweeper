@@ -17,6 +17,8 @@ export interface MinesweeperState {
 }
 
 export class Minesweeper extends React.Component<any, MinesweeperState> {
+    private refreshTimeout: any;
+
     constructor(props: any) {
         super(props);
         this.state = {
@@ -51,6 +53,9 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
             gameStatus: GameStatus.Playing,
             startedAtTime: Date.now(),
         });
+        this.refreshTimeout = setInterval(() => {
+            this.rerenderBoard();
+        }, 1000);
     };
 
     handleReveal = (field: FieldModel) => {
@@ -141,6 +146,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
 
     private winGame(board: Board) {
         board.revealAllFields();
+        clearInterval(this.refreshTimeout);
         this.setState({
             gameStatus: GameStatus.Won,
             stoppedAtTime: Date.now(),
@@ -149,6 +155,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
 
     private loseGame = (board: Board) => {
         board.revealAllFields();
+        clearInterval(this.refreshTimeout);
         this.setState({
             gameStatus: GameStatus.Lost,
             stoppedAtTime: Date.now(),
