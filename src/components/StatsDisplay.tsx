@@ -21,9 +21,25 @@ export class StatsDisplay extends React.Component<StatsDisplayProps, any> {
         }
     };
 
-    timer = () => {
-        const { startedAtTime } = this.props.minesweeperState;
-        return `${startedAtTime}`;
+    elapsedTime = () => {
+        const minesweeperState = this.props.minesweeperState;
+        const startedAtTime = minesweeperState.startedAtTime ?? 0;
+        const stoppedAtTime = minesweeperState.stoppedAtTime ?? startedAtTime;
+
+        const timeSpanInSeconds = (from: number, to: number): number => {
+            return Math.floor((to - from) / 1000);
+        };
+
+        switch (minesweeperState.gameStatus) {
+            case GameStatus.Playing:
+                return `${timeSpanInSeconds(startedAtTime, Date.now())}`;
+            case GameStatus.Won:
+            case GameStatus.Lost:
+                return `${timeSpanInSeconds(startedAtTime, stoppedAtTime)}`;
+            case GameStatus.Idle:
+            default:
+                return `0`;
+        }
     };
 
     render() {
@@ -69,7 +85,7 @@ export class StatsDisplay extends React.Component<StatsDisplayProps, any> {
                         <span role="img" aria-label="time">
                             ⏲
                         </span>
-                        &nbsp;<span>{this.timer()}</span>
+                        &nbsp;<span>{this.elapsedTime()}</span>
                     </Badge>
                 </div>
             </>

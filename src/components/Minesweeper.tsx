@@ -57,15 +57,13 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         const { board } = this.state;
 
         if (field.hasMine) {
-            board.revealAllFields();
-            this.setState({ gameStatus: GameStatus.Lost });
+            this.loseGame(board);
         } else {
             this.revealFieldsRecursively(field);
         }
 
         if (board.numberOfFieldsToReveal === 0) {
-            board.revealAllFields();
-            this.setState({ gameStatus: GameStatus.Won });
+            this.winGame(board);
         }
         this.rerenderBoard();
     };
@@ -140,6 +138,22 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
             {this.howToUse()}
         </section>
     );
+
+    private winGame(board: Board) {
+        board.revealAllFields();
+        this.setState({
+            gameStatus: GameStatus.Won,
+            stoppedAtTime: Date.now(),
+        });
+    }
+
+    private loseGame = (board: Board) => {
+        board.revealAllFields();
+        this.setState({
+            gameStatus: GameStatus.Lost,
+            stoppedAtTime: Date.now(),
+        });
+    };
 
     private rerenderBoard = () => this.setState({});
 }
