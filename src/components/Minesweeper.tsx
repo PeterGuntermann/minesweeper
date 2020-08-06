@@ -28,7 +28,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         };
     }
 
-    startNewGame = (level: Level) => {
+    startNewGame = (level: Level): void => {
         switch (level) {
             case Level.Easy:
                 this.setState({
@@ -58,7 +58,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         }, 1000);
     };
 
-    handleReveal = (field: FieldModel) => {
+    handleReveal = (field: FieldModel): void => {
         const { board } = this.state;
 
         if (field.hasMine) {
@@ -73,7 +73,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         this.rerenderBoard();
     };
 
-    handleMultiReveal = (field: FieldModel) => {
+    handleMultiReveal = (field: FieldModel): void => {
         const neighbors = this.state.board.getNeighborsOfField(field);
         const numberOfFlaggedNeighbors = neighbors.filter(
             (neighbor) => neighbor.isFlagged
@@ -144,7 +144,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         </section>
     );
 
-    private winGame(board: Board) {
+    private winGame(board: Board): void {
         board.revealAllFields();
         clearInterval(this.refreshTimeout);
         this.setState({
@@ -153,7 +153,7 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         });
     }
 
-    private loseGame = (board: Board) => {
+    private loseGame = (board: Board): void => {
         board.revealAllFields();
         clearInterval(this.refreshTimeout);
         this.setState({
@@ -162,5 +162,5 @@ export class Minesweeper extends React.Component<any, MinesweeperState> {
         });
     };
 
-    private rerenderBoard = () => this.setState({});
+    private rerenderBoard = (): void => this.setState({});
 }

@@ -142,7 +142,7 @@ export class Board {
         });
     }
 
-    private initializeBlankFields() {
+    private initializeBlankFields(): void {
         for (let i = 0; i < this.numberOfFields; i++) {
             this._fields.push({
                 hasMine: false,
@@ -157,7 +157,7 @@ export class Board {
         }
     }
 
-    private rollMinePositions() {
+    private rollMinePositions(): void {
         while (this._minePositions.length < this.numberOfMines) {
             const randomColumn = Math.floor(Math.random() * this.numberOfColumns);
             const randomRow = Math.floor(Math.random() * this.numberOfRows);
@@ -175,7 +175,7 @@ export class Board {
         }
     }
 
-    private distributeMines() {
+    private distributeMines(): void {
         this._minePositions.forEach((minePosition) => {
             const field = this.getFieldByPosition(minePosition);
 
@@ -187,13 +187,13 @@ export class Board {
         });
     }
 
-    private calculateNumberOfMineNeighbors() {
+    private calculateNumberOfMineNeighbors(): void {
         this._fields.forEach((field) => {
             field.numberOfMineNeighbors = this.getNumberOfMineNeighborsForField(field);
         });
     }
 
-    private getNumberOfMineNeighborsForField(field: FieldModel) {
+    private getNumberOfMineNeighborsForField(field: FieldModel): number {
         const neighbors = this.getNeighborsOfField(field);
         const neighborsWithMine = neighbors.filter((neighbor) => neighbor.hasMine);
         return neighborsWithMine.length;
